@@ -21,7 +21,7 @@ workflow:
     skipInstall: false
   memoryEnabled: true
 gitConfig:
-  repo: bookingPilot/1MillionPortfolio
+  repo: singro86/StocksScanner
   branch: main
 
 notes: |

@@ -15,14 +15,14 @@ Import these workflows via **Cursor → Automations → New** and copy prompts/s
 ## Prerequisites
 
 1. MCP servers configured (`config/MCP_SETUP.md`)
-2. Private GitHub repo: `bookingPilot/1MillionPortfolio` (cloud automations + Actions checkout)
+2. GitHub repo: `singro86/StocksScanner` (cloud automations + Actions checkout)
 3. Email: put `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM` in gitignored `config/wsli.env` (local) and the same names as GitHub Actions secrets (weekday job)
 
 ## GitHub Action — penny morning job
 
 [`.github/workflows/daily-penny9.yml`](../.github/workflows/daily-penny9.yml) runs weekdays at 8:30 AM America/Toronto. It does **not** use Cursor MCP. Local runs of `daily-penny9-scan.py` load `config/wsli.env` automatically.
 
-1. Repo is `https://github.com/bookingPilot/1MillionPortfolio` (private)
+1. Repo is `https://github.com/singro86/StocksScanner`
 2. Add repository secrets `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`
 3. Run **Actions → Daily penny scans → Run workflow** once to test (and to arm the schedule)
 
