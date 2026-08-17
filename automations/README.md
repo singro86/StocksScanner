@@ -28,11 +28,11 @@ Import these workflows via **Cursor → Automations → New** and copy prompts/s
 
 Secrets are referenced by **name** (`${{ secrets.RESEND_API_KEY }}`). Never paste the key value into the workflow file — it is committed to the repo and becomes public history.
 
-The job never places trades. During paper trading the buy line is `PAPER_CANDIDATE` at most.
+The job never places trades. During paper trading the buy line is **Buy (paper)** at most. One HTML digest email covers both lists, ranked Buy → Sell → Hold → Watch → Avoid.
 
 ### Two universes, one scanner
 
-`scripts/scoring/daily-penny9-scan.py --universe <path>` scans any universe YAML. The `slug` key inside that YAML decides the output filenames, so the two tiers never overwrite each other.
+`scripts/scoring/daily-penny9-scan.py --digest` is the weekday command. `--universe <path>` still scans one YAML. The `slug` key inside that YAML decides the output filenames, so the two tiers never overwrite each other.
 
 | Universe | Tier | Names | Outputs |
 |----------|------|-------|---------|

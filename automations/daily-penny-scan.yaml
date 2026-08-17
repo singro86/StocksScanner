@@ -8,14 +8,13 @@ workflow:
   prompts:
     - |
       You are the North America GARP Portfolio Manager (see AGENTS.md and .cursor/agents/garp-portfolio-manager.md).
-      Read the penny-scanner skill, then run both scans. Do not use Equibles for this price check.
+      Read the penny-scanner skill, then run the combined digest. Do not use Equibles for this price check.
 
       1. Read portfolio/profile.yaml and portfolio/peak-value.yaml
-      2. Run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny9-universe.yaml
-      3. Run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny-secondary-watchlist.yaml
-      4. Summarize: what to buy today (PAPER_CANDIDATE at most), IRWD vs 3x marker, any secondary name that needs an earnings-quality review
-      5. Secondary names are all quality: watch — never promote them
-      6. If paper trading active, say so. This job never calls wsli and never sets TRADE_APPROVED.
+      2. Run: python scripts/scoring/daily-penny9-scan.py --digest
+      3. Summarize the ranked table: Buy / Sell / Hold / Watch / Avoid. Buy is paper-only.
+      4. Secondary names are all quality: watch — never promote them
+      5. If paper trading active, say so. This job never calls wsli and never sets TRADE_APPROVED.
 
       Include the not-financial-advice disclaimer.
   agentOptions:

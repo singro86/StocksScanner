@@ -19,21 +19,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Evaluate the 9 primary names and append time series
+      - name: Scan both lists and email one ranked digest
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
           NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
-        run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny9-universe.yaml
-
-      # Watch-only tier. decide() cannot promote these, so it never emits a candidate.
-      - name: Evaluate the 20 secondary names and append time series
-        if: always()
-        env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
-          NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
-        run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny-secondary-watchlist.yaml
+        run: python scripts/scoring/daily-penny9-scan.py --digest
 
       - name: Commit snapshot
         if: always()

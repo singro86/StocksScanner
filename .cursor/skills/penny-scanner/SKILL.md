@@ -15,11 +15,10 @@ Two universes, one script. Never mix them into `watchlist.yaml` core slots witho
 ## Daily scan
 
 ```powershell
-uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py
-uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py --universe portfolio\penny-secondary-watchlist.yaml
+uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py --digest
 ```
 
-The GitHub Action `.github/workflows/daily-penny9.yml` runs both weekdays at 8:30 America/Toronto. This job never calls `wsli` and never sets `TRADE_APPROVED`.
+That writes both time series, both markdown briefs, plus one ranked HTML email (`Buy / Sell / Hold / Watch / Avoid`) covering all 29 names. The GitHub Action `.github/workflows/daily-penny9.yml` runs this weekdays at 8:30 America/Toronto. This job never calls `wsli` and never sets `TRADE_APPROVED`.
 
 ## Quality flags (enforced in `decide()`)
 
