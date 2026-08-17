@@ -22,7 +22,7 @@ workflow:
     skipInstall: false
   memoryEnabled: true
 gitConfig:
-  repo: ""
+  repo: bookingPilot/1MillionPortfolio
   branch: main
 
 notes: |
