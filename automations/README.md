@@ -15,16 +15,16 @@ Import these workflows via **Cursor → Automations → New** and copy prompts/s
 ## Prerequisites
 
 1. MCP servers configured (`config/MCP_SETUP.md`)
-2. Repo pushed to GitHub (for cloud automations git checkout)
-3. Email optional: set `RESEND_API_KEY`, `NOTIFY_EMAIL_TO` in environment (local) or GitHub Actions secrets (penny-9 workflow)
+2. Private GitHub repo: `bookingPilot/1MillionPortfolio` (cloud automations + Actions checkout)
+3. Email: put `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM` in gitignored `config/wsli.env` (local) and the same names as GitHub Actions secrets (weekday job)
 
 ## GitHub Action — penny morning job
 
-[`.github/workflows/daily-penny9.yml`](../.github/workflows/daily-penny9.yml) runs weekdays at 8:30 AM America/Toronto. It does **not** use Cursor MCP.
+[`.github/workflows/daily-penny9.yml`](../.github/workflows/daily-penny9.yml) runs weekdays at 8:30 AM America/Toronto. It does **not** use Cursor MCP. Local runs of `daily-penny9-scan.py` load `config/wsli.env` automatically.
 
-1. Push this repo to GitHub and enable Actions on the default branch
+1. Repo is `https://github.com/bookingPilot/1MillionPortfolio` (private)
 2. Add repository secrets `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`
-3. Run **Actions → Daily penny scans → Run workflow** once to test
+3. Run **Actions → Daily penny scans → Run workflow** once to test (and to arm the schedule)
 
 Secrets are referenced by **name** (`${{ secrets.RESEND_API_KEY }}`). Never paste the key value into the workflow file — it is committed to the repo and becomes public history.
 
