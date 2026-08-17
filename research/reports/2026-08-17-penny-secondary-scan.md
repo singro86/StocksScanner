@@ -12,25 +12,25 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 
 | Ticker | Close | 1d % | 5d % | SMA20 | RSI14 | Quality | Action |
 |--------|------:|-----:|-----:|------:|------:|---------|--------|
-| ABUS | 4.75 | 1.61 | 3.38 | 4.50 | 64.8 | watch | WATCH |
-| AISP | 1.97 | 0.26 | -3.20 | 1.95 | 51.8 | watch | WATCH |
-| ALTO | 4.20 | 0.36 | -0.83 | 4.58 | 44.7 | watch | WATCH |
-| AMPY | 4.82 | 0.73 | 15.74 | 4.13 | 78.8 | watch | WATCH |
-| AREC | 2.85 | -0.87 | 0.17 | 2.21 | 88.2 | watch | WATCH |
-| ARKO | 4.74 | -2.37 | 0.74 | 6.74 | 15.6 | watch | WATCH |
-| CYH | 2.93 | -2.33 | -0.34 | 2.90 | 59.0 | watch | WATCH |
-| GDRX | 3.69 | -1.21 | 0.68 | 3.34 | 67.3 | watch | WATCH |
-| GORO | 2.81 | 2.36 | 13.97 | 2.36 | 76.4 | watch | WATCH |
+| ABUS | 4.75 | 1.71 | 3.49 | 4.50 | 64.9 | watch | WATCH |
+| AISP | 2.00 | 2.30 | -1.23 | 1.95 | 53.7 | watch | WATCH |
+| ALTO | 4.20 | 0.45 | -0.74 | 4.58 | 44.8 | watch | WATCH |
+| AMPY | 4.82 | 0.76 | 15.77 | 4.13 | 78.8 | watch | WATCH |
+| AREC | 2.87 | -0.52 | 0.53 | 2.21 | 88.8 | watch | WATCH |
+| ARKO | 4.75 | -2.06 | 1.06 | 6.74 | 15.7 | watch | WATCH |
+| CYH | 2.94 | -2.17 | -0.17 | 2.90 | 59.4 | watch | WATCH |
+| GDRX | 3.69 | -1.07 | 0.82 | 3.34 | 67.5 | watch | WATCH |
+| GORO | 2.83 | 2.91 | 14.57 | 2.36 | 76.6 | watch | WATCH |
 | HLLY | 3.08 | -0.80 | -2.68 | 2.84 | 68.3 | watch | WATCH |
-| MDXG | 4.21 | -1.52 | -1.52 | 4.24 | 43.0 | watch | WATCH |
-| NAGE | 2.98 | -1.49 | -2.46 | 3.21 | 38.0 | watch | WATCH |
-| SABR | 2.23 | 0.00 | 7.73 | 1.96 | 67.0 | watch | WATCH |
-| SITC | 2.90 | -1.86 | -3.81 | 3.66 | 10.6 | watch | WATCH |
+| MDXG | 4.21 | -1.41 | -1.41 | 4.24 | 43.2 | watch | WATCH |
+| NAGE | 3.00 | -0.50 | -1.48 | 3.21 | 38.9 | watch | WATCH |
+| SABR | 2.23 | -0.22 | 7.49 | 1.96 | 66.7 | watch | WATCH |
+| SITC | 2.90 | -2.03 | -3.97 | 3.66 | 10.6 | watch | WATCH |
 | SPRO | 1.22 | -1.22 | -3.57 | 1.23 | 54.9 | watch | WATCH |
-| TBLA | 3.87 | -4.57 | -5.73 | 4.63 | 32.0 | watch | WATCH |
+| TBLA | 3.88 | -4.32 | -5.49 | 4.63 | 32.1 | watch | WATCH |
 | TYGO | 1.18 | -3.69 | -3.69 | 1.55 | 34.8 | watch | WATCH |
-| UWMC | 1.51 | -5.03 | 7.09 | 1.70 | 40.0 | watch | WATCH |
-| VFF | 2.62 | 3.36 | 10.34 | 2.14 | 77.3 | watch | WATCH |
+| UWMC | 1.51 | -4.72 | 7.45 | 1.70 | 40.1 | watch | WATCH |
+| VFF | 2.62 | 3.56 | 10.55 | 2.14 | 77.4 | watch | WATCH |
 | VRRM | 4.63 | -1.80 | -5.41 | 4.72 | 58.3 | watch | WATCH |
 
 Prices: Yahoo Finance daily bars, 2026-08-17 America/Toronto. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
