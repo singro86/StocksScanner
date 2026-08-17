@@ -270,6 +270,18 @@ def rank_key(row: dict) -> tuple:
     return (rec_rank, buy_primary, five_sort, row["ticker"])
 
 
+EMAIL_TOP_N = 10
+ACTION_RECS = {"Buy (paper)", "Buy", "Sell"}
+
+
+def top_email_rows(rows: list[dict], n: int = EMAIL_TOP_N) -> list[dict]:
+    """Buy and Sell first, then Hold/Watch/Avoid, capped at n."""
+    ranked = sorted(rows, key=rank_key)
+    action = [r for r in ranked if r["recommendation"] in ACTION_RECS]
+    rest = [r for r in ranked if r["recommendation"] not in ACTION_RECS]
+    return (action + rest)[:n]
+
+
 def send_email(subject: str, text: str, html_body: str | None = None, tag: str = "daily_scan") -> None:
     api_key = os.environ.get("RESEND_API_KEY")
     to = os.environ.get("NOTIFY_EMAIL_TO")
@@ -405,6 +417,7 @@ def _chg_html(n: float | None) -> str:
 
 def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[str]) -> str:
     ranked = sorted(rows, key=rank_key)
+    picks = top_email_rows(rows)
     n = counts(rows)
     buy_n = n.get("Buy (paper)", 0) + n.get("Buy", 0)
     buys = [r for r in ranked if r["recommendation"] in {"Buy (paper)", "Buy"}]
@@ -415,7 +428,7 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
             f"({signed(b['pct_1d'])}% today). Not a live Wealthsimple order."
         )
     else:
-        headline = "No buy today. Scan both lists below — Watch names stay research-only until GARP ≥ 60."
+        headline = "No buy today. Top 10 below are ranked Sell first, then Hold/Watch. Watch stays research-only until GARP ≥ 60."
 
     cards = [
         ("Buy", buy_n, "#05603a", "#ecfdf3"),
@@ -434,25 +447,21 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
     )
 
     body_rows = []
-    for i, r in enumerate(ranked, 1):
+    for i, r in enumerate(picks, 1):
         bg = "#f9fafb" if i % 2 == 0 else "#ffffff"
         name = html.escape(r.get("name") or "")
         ticker = html.escape(r["ticker"])
         why = html.escape(r.get("reason") or "")
-        lst = html.escape(r.get("list") or "")
         body_rows.append(
             f'<tr style="background:{bg};">'
-            f'<td style="padding:10px 8px;text-align:center;color:#667085;">{i}</td>'
-            f'<td style="padding:10px 8px;"><strong>{ticker}</strong>'
+            f'<td style="padding:12px 8px;text-align:center;color:#667085;width:36px;">{i}</td>'
+            f'<td style="padding:12px 8px;width:90px;"><strong style="font-size:15px;">{ticker}</strong>'
             f'<div style="font-size:11px;color:#667085;">{name}</div></td>'
-            f'<td style="padding:10px 8px;font-size:12px;color:#667085;">{lst}</td>'
-            f'<td style="padding:10px 8px;white-space:nowrap;">{_badge(r["recommendation"])}</td>'
-            f'<td style="padding:10px 8px;text-align:right;font-variant-numeric:tabular-nums;">${fmt(r["close"])}</td>'
-            f'<td style="padding:10px 8px;text-align:right;">{_chg_html(r["pct_1d"])}</td>'
-            f'<td style="padding:10px 8px;text-align:right;">{_chg_html(r["pct_5d"])}</td>'
-            f'<td style="padding:10px 8px;text-align:right;font-variant-numeric:tabular-nums;">{fmt(r["sma20"])}</td>'
-            f'<td style="padding:10px 8px;text-align:right;font-variant-numeric:tabular-nums;">{fmt(r["rsi14"], 1)}</td>'
-            f'<td style="padding:10px 8px;font-size:12px;color:#475467;">{why}</td>'
+            f'<td style="padding:12px 8px;white-space:nowrap;width:110px;">{_badge(r["recommendation"])}</td>'
+            f'<td style="padding:12px 8px;text-align:right;font-variant-numeric:tabular-nums;width:70px;">${fmt(r["close"])}</td>'
+            f'<td style="padding:12px 8px;text-align:right;width:62px;">{_chg_html(r["pct_1d"])}</td>'
+            f'<td style="padding:12px 8px;text-align:right;width:62px;">{_chg_html(r["pct_5d"])}</td>'
+            f'<td style="padding:12px 10px 12px 12px;font-size:13px;line-height:1.45;color:#344054;">{why}</td>'
             f"</tr>"
         )
 
@@ -465,10 +474,10 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
 <html><body style="margin:0;padding:0;background:#eef2f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#101828;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef2f6;padding:24px 12px;">
     <tr><td align="center">
-      <table role="presentation" width="720" cellspacing="0" cellpadding="0" style="max-width:720px;background:#ffffff;border-radius:16px;overflow:hidden;">
+      <table role="presentation" width="760" cellspacing="0" cellpadding="0" style="max-width:760px;background:#ffffff;border-radius:16px;overflow:hidden;">
         <tr><td style="background:#0b1220;color:#ffffff;padding:24px 28px;">
           <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#98a2b3;">1MillionPortfolio · TFSA paper scan</div>
-          <div style="font-size:24px;font-weight:800;margin-top:6px;">Daily penny digest</div>
+          <div style="font-size:24px;font-weight:800;margin-top:6px;">Top 10 penny picks</div>
           <div style="font-size:14px;color:#d0d5dd;margin-top:4px;">{html.escape(day)} · America/Toronto · Yahoo daily bars</div>
         </td></tr>
         <tr><td style="padding:20px 28px 8px 28px;">
@@ -479,23 +488,20 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
         <tr><td style="padding:8px 16px 20px 16px;">
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #eaecf0;border-radius:12px;overflow:hidden;font-size:13px;">
             <tr style="background:#0b1220;color:#ffffff;">
-              <th style="padding:10px 8px;text-align:center;">#</th>
-              <th style="padding:10px 8px;text-align:left;">Ticker</th>
-              <th style="padding:10px 8px;text-align:left;">List</th>
-              <th style="padding:10px 8px;text-align:left;">Rec</th>
-              <th style="padding:10px 8px;text-align:right;">Price</th>
-              <th style="padding:10px 8px;text-align:right;">1d</th>
-              <th style="padding:10px 8px;text-align:right;">5d</th>
-              <th style="padding:10px 8px;text-align:right;">SMA20</th>
-              <th style="padding:10px 8px;text-align:right;">RSI</th>
-              <th style="padding:10px 8px;text-align:left;">Why</th>
+              <th style="padding:10px 8px;text-align:center;width:36px;">#</th>
+              <th style="padding:10px 8px;text-align:left;width:90px;">Ticker</th>
+              <th style="padding:10px 8px;text-align:left;width:110px;">Rec</th>
+              <th style="padding:10px 8px;text-align:right;width:70px;">Price</th>
+              <th style="padding:10px 8px;text-align:right;width:62px;">1d</th>
+              <th style="padding:10px 8px;text-align:right;width:62px;">5d</th>
+              <th style="padding:10px 12px;text-align:left;">Why</th>
             </tr>
             {''.join(body_rows)}
           </table>
         </td></tr>
         <tr><td style="padding:0 28px 24px 28px;font-size:12px;color:#667085;line-height:1.55;">
           {err_html}
-          <p style="margin:0 0 8px 0;">Sorted Buy → Sell → Hold → Watch → Avoid. Primary 9 outranks the secondary watchlist when the recommendation is the same. SMA20 and RSI14 use 3 months of Yahoo daily closes. Official GARP scores are not computed here — live tickets still need GARP ≥ 60.</p>
+          <p style="margin:0 0 8px 0;">Table shows the top {len(picks)} of {len(rows)} names, ranked Buy → Sell → Hold → Watch → Avoid so Buy/Sell sit first. SMA20 and RSI stay in the saved markdown report. Official GARP scores are not computed here — live tickets still need GARP ≥ 60.</p>
           <p style="margin:0;">I am an AI research assistant, not a licensed financial advisor. This is educational information, not personalized financial advice. This job never calls wsli and never sets TRADE_APPROVED.</p>
         </td></tr>
       </table>
