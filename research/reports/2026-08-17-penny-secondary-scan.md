@@ -12,26 +12,26 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 
 | Rank | Ticker | List | Rec | Close | 1d % | 5d % | SMA20 | RSI14 | Why |
 |-----:|--------|------|-----|------:|-----:|-----:|------:|------:|-----|
-| 1 | AMPY | Secondary 20 | Watch | 4.86 | +1.57 | +16.71 | 4.13 | 79.3 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 2 | GORO | Secondary 20 | Watch | 2.87 | +4.36 | +16.19 | 2.36 | 77.2 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 1 | AMPY | Secondary 20 | Watch | 4.84 | +1.25 | +16.34 | 4.13 | 79.1 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 2 | GORO | Secondary 20 | Watch | 2.83 | +3.09 | +14.78 | 2.36 | 76.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 3 | VFF | Secondary 20 | Watch | 2.62 | +3.75 | +10.76 | 2.14 | 77.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 4 | UWMC | Secondary 20 | Watch | 1.52 | -4.40 | +7.80 | 1.70 | 40.2 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 5 | SABR | Secondary 20 | Watch | 2.22 | -0.45 | +7.25 | 1.96 | 66.3 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 6 | ABUS | Secondary 20 | Watch | 4.79 | +2.46 | +4.25 | 4.50 | 66.0 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 7 | AREC | Secondary 20 | Watch | 2.90 | +0.52 | +1.58 | 2.21 | 89.8 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 8 | ARKO | Secondary 20 | Watch | 4.76 | -1.75 | +1.38 | 6.75 | 15.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 9 | GDRX | Secondary 20 | Watch | 3.71 | -0.67 | +1.23 | 3.34 | 68.1 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 10 | CYH | Secondary 20 | Watch | 2.94 | -2.17 | -0.17 | 2.90 | 59.4 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 11 | AISP | Secondary 20 | Watch | 2.02 | +3.32 | -0.25 | 1.95 | 54.6 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 12 | ALTO | Secondary 20 | Watch | 4.20 | +0.48 | -0.71 | 4.58 | 44.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 13 | MDXG | Secondary 20 | Watch | 4.21 | -1.29 | -1.29 | 4.24 | 43.4 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 14 | NAGE | Secondary 20 | Watch | 2.99 | -0.99 | -1.97 | 3.21 | 38.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 15 | SPRO | Secondary 20 | Watch | 1.22 | -0.81 | -3.17 | 1.23 | 55.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 16 | TYGO | Secondary 20 | Watch | 1.18 | -3.28 | -3.28 | 1.55 | 34.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 17 | SITC | Secondary 20 | Watch | 2.92 | -1.35 | -3.31 | 3.66 | 10.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 18 | HLLY | Secondary 20 | Watch | 3.06 | -1.77 | -3.63 | 2.84 | 66.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 19 | VRRM | Secondary 20 | Watch | 4.66 | -1.27 | -4.90 | 4.72 | 58.8 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 20 | TBLA | Secondary 20 | Watch | 3.87 | -4.44 | -5.61 | 4.63 | 32.1 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 4 | SABR | Secondary 20 | Watch | 2.21 | -0.67 | +7.00 | 1.96 | 66.0 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 5 | UWMC | Secondary 20 | Watch | 1.50 | -5.66 | +6.38 | 1.70 | 39.8 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 6 | ABUS | Secondary 20 | Watch | 4.78 | +2.25 | +4.03 | 4.50 | 65.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 7 | ARKO | Secondary 20 | Watch | 4.75 | -1.96 | +1.17 | 6.74 | 15.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 8 | GDRX | Secondary 20 | Watch | 3.69 | -0.94 | +0.96 | 3.34 | 67.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 9 | AREC | Secondary 20 | Watch | 2.87 | -0.52 | +0.53 | 2.21 | 88.8 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 10 | CYH | Secondary 20 | Watch | 2.95 | -1.67 | +0.34 | 2.91 | 60.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 11 | AISP | Secondary 20 | Watch | 2.02 | +3.06 | -0.49 | 1.95 | 54.4 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 12 | MDXG | Secondary 20 | Watch | 4.20 | -1.64 | -1.64 | 4.24 | 42.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 13 | NAGE | Secondary 20 | Watch | 2.99 | -0.99 | -1.97 | 3.21 | 38.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 14 | ALTO | Secondary 20 | Watch | 4.14 | -0.96 | -2.13 | 4.57 | 43.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 15 | SITC | Secondary 20 | Watch | 2.93 | -1.01 | -2.98 | 3.66 | 10.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 16 | VRRM | Secondary 20 | Watch | 4.75 | +0.64 | -3.06 | 4.73 | 60.6 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 17 | HLLY | Secondary 20 | Watch | 3.06 | -1.45 | -3.31 | 2.84 | 67.2 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 18 | SPRO | Secondary 20 | Watch | 1.22 | -1.22 | -3.57 | 1.23 | 54.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 19 | TYGO | Secondary 20 | Watch | 1.18 | -3.69 | -3.69 | 1.55 | 34.8 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 20 | TBLA | Secondary 20 | Watch | 3.84 | -5.18 | -6.34 | 4.63 | 31.7 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 
 Prices: Yahoo Finance daily bars, 2026-08-17 America/Toronto. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
