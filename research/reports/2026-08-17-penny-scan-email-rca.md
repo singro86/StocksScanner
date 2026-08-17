@@ -19,10 +19,11 @@ Both universes were scanned locally at ~11:33 AM America/Toronto using Yahoo dai
 
 Email was **not** delivered. `config/wsli.env` has `NOTIFY_EMAIL_TO` / `NOTIFY_EMAIL_FROM` but `RESEND_API_KEY` is empty, so the briefs were saved to `portfolio/cache/email-outbox/` (gitignored).
 
-## Fix in progress
+## Fix applied
 
-1. Load gitignored `config/wsli.env` inside `daily-penny9-scan.py` so local and Actions runs share the same secret names.
-2. Initialize git and push a **private** GitHub repo.
-3. Store Actions secrets by **name** (`RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`) and run `workflow_dispatch` once to arm the schedule.
+1. `daily-penny9-scan.py` now loads gitignored `config/wsli.env`.
+2. Private repo: https://github.com/bookingPilot/1MillionPortfolio
+3. Actions secrets set: `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`. **`RESEND_API_KEY` is still missing** — paste it into `config/wsli.env` and `gh secret set RESEND_API_KEY`.
+4. Manual `workflow_dispatch` succeeded: https://github.com/bookingPilot/1MillionPortfolio/actions/runs/32043165930 (18s). Snapshot commit `f053563`. Schedule is weekdays 8:30 America/Toronto.
 
-Sources: Yahoo Finance daily bars 2026-08-17; local scanner `scripts/scoring/daily-penny9-scan.py`.
+Sources: Yahoo Finance daily bars 2026-08-17; GitHub Actions run 32043165930; local scanner `scripts/scoring/daily-penny9-scan.py`.
