@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/session_start.py"
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/kill_switch.py",
+        "matcher": "wsli",
+        "failClosed": false
+      },
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/drawdown_gate.py",
+        "matcher": "wsli\\s+buy",
+        "failClosed": false
+      },
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/rate_limit_trades.py",
+        "matcher": "wsli\\s+(buy|sell)",
+        "failClosed": false
+      },
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/gate_wsli_trades.py",
+        "matcher": "wsli\\s+(buy|sell)",
+        "failClosed": false
+      }
+    ],
+    "beforeMCPExecution": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/audit_and_cache_mcp.py"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/block_secrets_and_risk.py"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/validate_portfolio_edit.py",
+        "matcher": "portfolio/"
+      }
+    ],
+    "subagentStop": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/chain_research_pipeline.py"
+      }
+    ],
+    "stop": [
+      {
+        "command": "python .cursor/hooks/run_hook.py .cursor/hooks/session_summary.py"
+      }
+    ]
+  }
+}

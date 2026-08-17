@@ -1,0 +1,19 @@
+# Synced from wsli portfolio or updated manually
+# Last sync: null
+
+currency: CAD
+total_value_cad: 0
+cash_cad: 0
+last_sync: null
+source: manual
+
+positions: []
+# Example position:
+# - ticker: MSFT
+#   shares: 0
+#   avg_cost_cad: 0
+#   current_price_cad: 0
+#   market_value_cad: 0
+#   weight_pct: 0
+#   garp_score: null
+#   sleeve: mega_cap_garp

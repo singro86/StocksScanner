@@ -1,0 +1,47 @@
+# Paper trading tracker — Phase 0 (4 weeks mandatory)
+# Set paper_trading_complete: true in profile.yaml only after all criteria pass
+
+status: active
+start_date: "2026-08-13"
+end_date: "2026-09-10"
+weeks_required: 4
+
+graduation_criteria:
+  weeks_elapsed: false
+  daily_garp_scans:
+    required: 20
+    completed: 0
+  bull_bear_memos:
+    required: 5
+    completed: 2
+  dry_run_tickets:
+    required: 3
+    completed: 1
+  user_confirmation: false
+
+scan_log: []
+memo_log:
+  - date: "2026-08-14"
+    ticker: IRWD
+    report: "research/reports/2026-08-14-IRWD-research.md"
+    type: bull_bear
+  - date: "2026-08-14"
+    ticker: PLX
+    report: "research/reports/2026-08-14-PLX-research.md"
+    type: bull_bear
+  - date: "2026-08-14"
+    ticker: IDN
+    report: "research/reports/2026-08-14-IDN-watch.md"
+    type: watch_note
+dry_run_log:
+  - date: "2026-08-13"
+    ticker: "MSFT,GOOGL,AMZN,NVDA"
+    action: buy
+    report: "research/reports/2026-08-13-cold-start-trades.md"
+    mode: manual_paper
+
+notes: |
+  During paper trading:
+  - All wsli buy/sell commands are BLOCKED (hooks enforce)
+  - wsli read-only sync and --dry-run are allowed
+  - Agent must say "Paper trading active — dry-run only" when proposing trades

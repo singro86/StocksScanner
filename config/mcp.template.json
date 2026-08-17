@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "rebalance-mcp": {
+      "command": "uvx",
+      "args": ["rebalance-mcp"]
+    },
+    "equibles": {
+      "url": "https://mcp.equibles.com/mcp",
+      "headers": {
+        "Authorization": "Bearer eq_YOUR_KEY_HERE"
+      }
+    },
+    "portfolio-mcp": {
+      "command": "uvx",
+      "args": ["portfolio-mcp"]
+    },
+    "financekit": {
+      "command": "uvx",
+      "args": ["--from", "financekit-mcp", "financekit"]
+    }
+  }
+}

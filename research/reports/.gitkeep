@@ -1,0 +1,9 @@
+# Research reports and dry-run trade tickets
+
+Agent saves analysis memos and dry-run outputs here.
+
+Naming convention:
+- `YYYY-MM-DD-{TICKER}-research.md`
+- `YYYY-MM-DD-{TICKER}-bull-bear.md`
+- `YYYY-MM-DD-dry-run-{ACTION}-{TICKER}.md`
+- `YYYY-MM-DD-daily-garp-scan.md`

@@ -1,0 +1,31 @@
+name: "1M Portfolio — Daily penny scan"
+description: "Weekday scan of the 9-name primary penny universe and the 20-name secondary watchlist. Appends time series, writes paper-only recommendation. Never places trades."
+workflow:
+  triggers:
+    - cron:
+        cron: "30 8 * * 1-5"
+  actions: []
+  prompts:
+    - |
+      You are the North America GARP Portfolio Manager (see AGENTS.md and .cursor/agents/garp-portfolio-manager.md).
+      Read the penny-scanner skill, then run both scans. Do not use Equibles for this price check.
+
+      1. Read portfolio/profile.yaml and portfolio/peak-value.yaml
+      2. Run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny9-universe.yaml
+      3. Run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny-secondary-watchlist.yaml
+      4. Summarize: what to buy today (PAPER_CANDIDATE at most), IRWD vs 3x marker, any secondary name that needs an earnings-quality review
+      5. Secondary names are all quality: watch — never promote them
+      6. If paper trading active, say so. This job never calls wsli and never sets TRADE_APPROVED.
+
+      Include the not-financial-advice disclaimer.
+  agentOptions:
+    skipInstall: false
+  memoryEnabled: true
+gitConfig:
+  repo: ""
+  branch: main
+
+notes: |
+  Companion to .github/workflows/daily-penny9.yml (the GitHub Action is the durable runner).
+  This Cursor Automation is optional if Actions is already committing snapshots.
+  Needs tzdata on the runner: uv run --python 3.12 --with tzdata --no-project python ...

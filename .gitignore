@@ -1,0 +1,25 @@
+# Secrets — never commit
+.env
+*.env
+!*.template.env
+config/wsli.env
+config/mcp.json
+
+# MCP cache (regenerated)
+portfolio/cache/*
+!portfolio/cache/.gitkeep
+
+# OAuth tokens
+.wsli/
+wsli-session.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+.venv/

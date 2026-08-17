@@ -1,0 +1,286 @@
+# Secondary penny watchlist - 20 names (Equibles screen + FinanceKit quotes, 2026-08-14)
+# Tier 2 behind portfolio/penny9-universe.yaml. Scanned daily by:
+#   python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny-secondary-watchlist.yaml
+#
+# Selection rule: US major-exchange listing, last price under 5.00 USD,
+# positive TTM net income, 3-month average dollar volume above 1M USD,
+# no going-concern doubt. Ranked by fluctuation_pct - the 52-week high-low
+# spread as a percent of the current price. That is a range proxy, not
+# realized volatility. The daily job accumulates real bars so realized
+# volatility can replace it once the CSV has enough history.
+#
+# quality: every name is "watch". None has a Rebalance-MCP GARP score, so none
+# may be auto-promoted to a buy by the scanner. "watch" is enforced in
+# decide() - it returns WATCH and never PAPER_CANDIDATE.
+
+slug: penny-secondary
+report_title: "Secondary penny watchlist scan"
+as_of: "2026-08-14"
+source: equibles_screener + financekit_quotes
+tier: secondary
+max_names: 20
+min_garp_score: 60
+status: research_only
+
+excluded_deliberately: "NLST trades on OTCQB and Wealthsimple rules bar OTC. KOPN 5.31 and PTLO 5.15 crossed above the 5.00 penny line on 2026-08-14. CURI net income was 24k TTM which is breakeven not profitable. The nine names in penny9-universe.yaml are not repeated here."
+
+tickers:
+  - ticker: VRRM
+    name: Verra Mobility
+    quality: watch
+    exchange: NASDAQ
+    sector: Technology
+    price_usd: 4.74
+    pe_ttm: 17.56
+    net_income_ttm_usd: 44285000
+    beta: 0.406
+    fifty_two_week: "3.40 - 25.57"
+    fluctuation_pct: 468
+    risk: "Down about 81 percent from the 52-week high and 13F filers fell 26 QoQ. Understand what broke before treating the low price as value."
+
+  - ticker: UWMC
+    name: UWM Holdings
+    quality: watch
+    exchange: NYSE
+    sector: Financial Services
+    price_usd: 1.575
+    pe_ttm: null
+    net_income_ttm_usd: 196206000
+    beta: 1.847
+    fifty_two_week: "0.93 - 7.14"
+    fluctuation_pct: 394
+    risk: "Most liquid name on the list at 51M USD a day. A 26 percent trailing dividend yield means the market does not believe the payout. No TTM P/E and mortgage-cycle sensitive."
+
+  - ticker: TYGO
+    name: Tigo Energy
+    quality: watch
+    exchange: NASDAQ
+    sector: Technology
+    price_usd: 1.20
+    pe_ttm: 7.50
+    net_income_ttm_usd: 9975000
+    beta: 1.329
+    fifty_two_week: "0.93 - 5.33"
+    fluctuation_pct: 366
+    risk: "Smallest cap here at 91M USD. Insiders sold 1.63M USD net over 90 days and insider sentiment is 14 of 100. Solar demand is policy-driven."
+
+  - ticker: SITC
+    name: SITE Centers
+    quality: watch
+    exchange: NYSE
+    sector: Real Estate
+    price_usd: 2.96
+    pe_ttm: 1.23
+    net_income_ttm_usd: 127906000
+    beta: 1.062
+    fifty_two_week: "2.89 - 12.39"
+    fluctuation_pct: 321
+    risk: "A P/E of 1.2 is a spinoff and asset-sale artifact, not cheapness. This is a shrinking REIT and REITs are valued on FFO, not earnings."
+
+  - ticker: AISP
+    name: Airship AI Holdings
+    quality: watch
+    exchange: NASDAQ
+    sector: Technology
+    price_usd: 1.955
+    pe_ttm: 2.92
+    net_income_ttm_usd: 26243265
+    beta: 0.585
+    fifty_two_week: "1.69 - 7.20"
+    fluctuation_pct: 282
+    risk: "Revenue growth 92 percent YoY but market cap is only 67M USD and 1.5M USD a day trades. Position sizing and slippage matter more than the thesis at this size."
+
+  - ticker: NAGE
+    name: Niagen Bioscience
+    quality: watch
+    exchange: NASDAQ
+    sector: Healthcare
+    price_usd: 3.015
+    pe_ttm: 15.87
+    net_income_ttm_usd: 15991000
+    beta: 2.103
+    fifty_two_week: "2.87 - 10.52"
+    fluctuation_pct: 254
+    risk: "Highest beta on the list at 2.10 and sitting near the 52-week low. 13F filers dropped 24 QoQ, the largest institutional exit here."
+
+  - ticker: AREC
+    name: American Resources
+    quality: watch
+    exchange: NASDAQ
+    sector: Industrials
+    price_usd: 2.895
+    pe_ttm: null
+    net_income_ttm_usd: 55385211
+    beta: 1.158
+    fifty_two_week: "1.18 - 7.11"
+    fluctuation_pct: 205
+    risk: "55M USD net income but no TTM P/E, which usually means a one-time gain rather than operating earnings. Verify the income statement before believing the profit."
+
+  - ticker: GORO
+    name: Goldgroup Mining
+    quality: watch
+    exchange: NYSE American
+    sector: Basic Materials
+    price_usd: 2.78
+    pe_ttm: null
+    net_income_ttm_usd: 6599000
+    beta: -0.58
+    fifty_two_week: "1.87 - 6.56"
+    fluctuation_pct: 169
+    risk: "Revenue growth of 256 percent is off a low base and negative beta means it tracks gold, not the market. This is a commodity bet wearing an equity ticker."
+
+  - ticker: SPRO
+    name: Spero Therapeutics
+    quality: watch
+    exchange: NASDAQ
+    sector: Healthcare
+    price_usd: 1.215
+    pe_ttm: 8.68
+    net_income_ttm_usd: 7383000
+    beta: null
+    fifty_two_week: "1.08 - 3.08"
+    fluctuation_pct: 165
+    risk: "Clinical-stage biotech where revenue is collaboration and milestone payments. Profit is lumpy by construction and does not annualize."
+
+  - ticker: VFF
+    name: Village Farms International
+    quality: watch
+    exchange: NASDAQ
+    sector: Consumer Defensive
+    price_usd: 2.545
+    pe_ttm: 14.14
+    net_income_ttm_usd: 22709000
+    beta: null
+    fifty_two_week: "1.81 - 4.99"
+    fluctuation_pct: 125
+    risk: "Squeeze score 95 with positive insider buying. A squeeze setup is a crowd condition, never a reason to own a business."
+
+  - ticker: ALTO
+    name: Alto Ingredients
+    quality: watch
+    exchange: NASDAQ
+    sector: Basic Materials
+    price_usd: 4.205
+    pe_ttm: 6.28
+    net_income_ttm_usd: 51986000
+    beta: 0.188
+    fifty_two_week: "0.92 - 6.11"
+    fluctuation_pct: 123
+    risk: "Cheapest clean P/E here at 6.3 with insider buying. Ethanol crush spreads drive earnings, so the low multiple may be pricing a cyclical peak."
+
+  - ticker: MDXG
+    name: MiMedx Group
+    quality: watch
+    exchange: NASDAQ
+    sector: Healthcare
+    price_usd: 4.305
+    pe_ttm: 107.6
+    net_income_ttm_usd: 6237000
+    beta: 1.414
+    fifty_two_week: "3.03 - 7.97"
+    fluctuation_pct: 115
+    risk: "P/E of 108 fails the GARP valuation guardrail outright. Earnings are far too small for the market cap. Reimbursement risk on skin substitutes."
+
+  - ticker: GDRX
+    name: GoodRx Holdings
+    quality: watch
+    exchange: NASDAQ
+    sector: Healthcare
+    price_usd: 3.74
+    pe_ttm: 62.33
+    net_income_ttm_usd: 16249000
+    beta: 1.58
+    fifty_two_week: "1.77 - 5.81"
+    fluctuation_pct: 108
+    risk: "P/E of 62 on thin margins and PBM relationships that can reprice the business overnight. Biggest name here by revenue quality but not by valuation."
+
+  - ticker: ARKO
+    name: ARKO Corp
+    quality: watch
+    exchange: NASDAQ
+    sector: Consumer Cyclical
+    price_usd: 4.865
+    pe_ttm: 60.81
+    net_income_ttm_usd: 14792000
+    beta: 0.962
+    fifty_two_week: "3.71 - 8.76"
+    fluctuation_pct: 104
+    risk: "Convenience-store roll-up carrying acquisition debt. P/E 61 with a 2.7 percent dividend and 13F filers up 21 QoQ. Fuel margins drive the print."
+
+  - ticker: TBLA
+    name: Taboola.com
+    quality: watch
+    exchange: NASDAQ
+    sector: Communication Services
+    price_usd: 4.08
+    pe_ttm: 10.46
+    net_income_ttm_usd: 118758000
+    beta: 1.517
+    fifty_two_week: "2.84 - 5.71"
+    fluctuation_pct: 70
+    risk: "Insiders sold 105.6M USD net over 90 days, the largest red flag on this list. Screens well on P/E 10.5 and 119M net income, but insiders are leaving."
+
+  - ticker: HLLY
+    name: Holley Inc
+    quality: watch
+    exchange: NYSE
+    sector: Consumer Cyclical
+    price_usd: 3.095
+    pe_ttm: 34.39
+    net_income_ttm_usd: 10322000
+    beta: 1.317
+    fifty_two_week: "2.33 - 4.48"
+    fluctuation_pct: 69
+    risk: "Leveraged automotive aftermarket supplier selling discretionary parts. P/E 34 is above the screener guardrail of 40 only because earnings are depressed."
+
+  - ticker: CYH
+    name: Community Health Systems
+    quality: watch
+    exchange: NYSE
+    sector: Healthcare
+    price_usd: 3.005
+    pe_ttm: 1.62
+    net_income_ttm_usd: 252000000
+    beta: 1.859
+    fifty_two_week: "2.41 - 4.43"
+    fluctuation_pct: 67
+    risk: "A P/E of 1.6 is not a bargain. Roughly 11B USD of hospital debt sits ahead of the equity, so the market cap is a thin sliver of the enterprise. Beta 1.86."
+
+  - ticker: SABR
+    name: Sabre Corp
+    quality: watch
+    exchange: NASDAQ
+    sector: Technology
+    price_usd: 2.235
+    pe_ttm: null
+    net_income_ttm_usd: 717454000
+    beta: 0.985
+    fifty_two_week: "0.81 - 2.30"
+    fluctuation_pct: 66
+    risk: "Same debt-stub setup already rejected in the primary screen. 717M USD net income with no TTM P/E means non-operating items. Trading near the 52-week high after tripling."
+
+  - ticker: AMPY
+    name: Amplify Energy
+    quality: watch
+    exchange: NYSE
+    sector: Energy
+    price_usd: 4.775
+    pe_ttm: 8.53
+    net_income_ttm_usd: 22628000
+    beta: -0.183
+    fifty_two_week: "3.65 - 6.79"
+    fluctuation_pct: 66
+    risk: "Highest squeeze score on the list at 96 with insider buying. Negative beta because oil drives it. Small cap E and P with production and price risk."
+
+  - ticker: ABUS
+    name: Arbutus Biopharma
+    quality: watch
+    exchange: NASDAQ
+    sector: Healthcare
+    price_usd: 4.68
+    pe_ttm: 5.92
+    net_income_ttm_usd: 153054000
+    beta: 0.602
+    fifty_two_week: "3.31 - 5.38"
+    fluctuation_pct: 44
+    risk: "Tightest range here so the least fluctuating. The 153M USD net income looks like a litigation or royalty settlement rather than recurring product revenue."

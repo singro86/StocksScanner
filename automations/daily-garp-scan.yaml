@@ -1,0 +1,35 @@
+name: "1M Portfolio — Daily GARP Scan"
+description: "Weekday GARP scoring of watchlist, swap candidates, drawdown check. Email summary when configured."
+workflow:
+  triggers:
+    - cron:
+        cron: "30 8 * * 1-5"
+  actions:
+    - mcp:
+        server:
+          name: rebalance-mcp
+  prompts:
+    - |
+      You are the North America GARP Portfolio Manager for 1MillionPortfolio.
+
+      Run the daily GARP scan:
+      1. Read portfolio/watchlist.yaml and portfolio/peak-value.yaml
+      2. Use Rebalance-MCP to score all watchlist tickers (garp preset)
+      3. Flag score changes > 10 points; list swap candidates (delta >= 15)
+      4. Check drawdown mode — if review_only, no buy proposals
+      5. Save report to research/reports/YYYY-MM-DD-daily-garp-scan.md
+      6. If paper trading active, dry-run only
+
+      Use FinanceKit for quotes. Reserve Equibles quota.
+      Include disclaimer: not financial advice.
+  agentOptions:
+    skipInstall: false
+  memoryEnabled: true
+gitConfig:
+  repo: ""
+  branch: main
+
+notes: |
+  Import via Cursor Automations editor. Set gitConfig.repo to your GitHub remote.
+  Connect MCP servers per config/MCP_SETUP.md before enabling.
+  Add email: run scripts/notify/send-email.ps1 after automation completes.

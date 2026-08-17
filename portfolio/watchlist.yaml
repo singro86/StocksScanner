@@ -1,0 +1,83 @@
+# Static GARP core (20) + 3 monthly screener slots
+# Scores updated weekly via Rebalance-MCP (garp preset)
+
+last_scored: "2026-08-13"
+benchmark: QQQ
+
+core:
+  mega_cap_garp:
+    - ticker: MSFT
+      garp_score: 78
+      sleeve: mega_cap_garp
+    - ticker: GOOGL
+      garp_score: 74
+      sleeve: mega_cap_garp
+    - ticker: AMZN
+      garp_score: 71
+      sleeve: mega_cap_garp
+    - ticker: AAPL
+      garp_score: null
+      sleeve: mega_cap_garp
+    - ticker: META
+      garp_score: null
+      sleeve: mega_cap_garp
+
+  semis_ai:
+    - ticker: NVDA
+      garp_score: 68
+      sleeve: semis_ai
+    - ticker: AVGO
+      garp_score: null
+      sleeve: semis_ai
+    - ticker: AMD
+      garp_score: null
+      sleeve: semis_ai
+    - ticker: TSM
+      garp_score: null
+      sleeve: semis_ai
+    - ticker: ASML
+      garp_score: null
+      sleeve: semis_ai
+
+  mid_cap_garp:
+    - ticker: CRM
+      garp_score: null
+      sleeve: mid_cap_garp
+    - ticker: NOW
+      garp_score: null
+      sleeve: mid_cap_garp
+    - ticker: SHOP
+      garp_score: null
+      sleeve: mid_cap_garp
+    - ticker: UBER
+      garp_score: null
+      sleeve: mid_cap_garp
+    - ticker: SQ
+      garp_score: null
+      sleeve: mid_cap_garp
+
+  etf_reference:
+    - ticker: QQQ
+      garp_score: null
+      sleeve: benchmark
+      note: Benchmark only — not a buy target unless allocation calls for ETF backbone
+
+screener_slots:
+  - ticker: IRWD
+    source: equibles_screener
+    added_date: "2026-08-14"
+    garp_score: null
+    note: "Satellite 3x-rerate candidate from GARP penny screen. Official Rebalance-MCP score pending — not a buy. Paper trading only."
+  - ticker: null
+    source: equibles_screener
+    added_date: null
+    garp_score: null
+  - ticker: null
+    source: equibles_screener
+    added_date: null
+    garp_score: null
+
+screener_criteria:
+  profitable: true
+  pe_max: 40
+  revenue_growth_min_pct: 15

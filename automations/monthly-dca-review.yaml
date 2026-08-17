@@ -1,0 +1,22 @@
+name: "1M Portfolio — Monthly DCA Review"
+description: "First of month GARP-ranked DCA plan for $500-1000 contribution."
+workflow:
+  triggers:
+    - cron:
+        cron: "0 9 1 * *"
+  actions:
+    - mcp:
+        server:
+          name: rebalance-mcp
+  prompts:
+    - |
+      Monthly DCA review for 1MillionPortfolio:
+
+      1. Read portfolio/profile.yaml monthly_range [500, 1000]
+      2. Score watchlist and holdings (Rebalance-MCP garp)
+      3. Propose DCA split across 1-2 names (lowest holding score or top watchlist candidate)
+      4. Generate dry-run wsli trade tickets via scripts/wsli/dry-run-trade.ps1
+      5. Save plan to research/reports/YYYY-MM-DD-dca-plan.md
+
+      No live trades without user approval. Paper trading = dry-run only.
+  memoryEnabled: true

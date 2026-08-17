@@ -1,0 +1,44 @@
+---
+description: Trade safety — dry-run required, rate limits, wsli ToS, paper trading gates
+alwaysApply: true
+---
+
+# Trade Safety
+
+## Execution pipeline (mandatory order)
+
+1. GARP score via Rebalance-MCP
+2. Constraint check against `portfolio/profile.yaml`
+3. `wsli buy/sell --dry-run` → save to `research/reports/`
+4. User explicit approval
+5. Set `TRADE_APPROVED=true` for live execution only
+
+## Paper trading gate
+
+If `paper_trading_complete: false` in profile.yaml:
+- **Block** all live wsli buy/sell
+- Allow read-only sync and dry-run only
+- Say: "Paper trading active — dry-run only."
+
+## Rate limits
+
+- Max 3 trades/hour, 5/day (profile.yaml)
+- Wealthsimple server limit: 7/hour — never exceed 3/hour agent limit
+
+## Position limits
+
+- Max single stock: 20% of portfolio
+- Max sector: 40%
+- No margin, no options (until experience gate lifted)
+
+## Kill switch
+
+If `PAUSE_ALL_TRADING=true` — refuse all trade commands.
+
+## Wealthsimple ToS
+
+`wsli` is unofficial. User acknowledged `tos_acknowledged: true`. Remind on first live trade in a session.
+
+## Drawdown
+
+At 15% below peak — **no new buys**. Review-only mode until within 10% of peak.

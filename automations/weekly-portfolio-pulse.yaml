@@ -1,0 +1,27 @@
+name: "1M Portfolio — Weekly Portfolio Pulse"
+description: "Monday sync, score holdings, drift report, swap recommendations, QQQ benchmark."
+workflow:
+  triggers:
+    - cron:
+        cron: "0 8 * * 1"
+  actions:
+    - mcp:
+        server:
+          name: rebalance-mcp
+    - mcp:
+        server:
+          name: portfolio-mcp
+  prompts:
+    - |
+      Weekly portfolio review for 1MillionPortfolio:
+
+      1. Run scripts/wsli/sync-portfolio.ps1 (read-only)
+      2. Score all holdings via Rebalance-MCP (garp)
+      3. Use Portfolio-MCP for Sharpe and drawdown metrics
+      4. Compare vs QQQ (FinanceKit)
+      5. Flag allocation drift > 5%
+      6. List swap candidates (delta >= 15)
+      7. Save to research/reports/YYYY-MM-DD-portfolio-review.md
+
+      Respect drawdown protocol and paper trading gates.
+  memoryEnabled: true

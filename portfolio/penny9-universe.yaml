@@ -1,0 +1,69 @@
+# 9-name GARP penny screen universe (Equibles 2026-08-14)
+# Daily job: scripts/scoring/daily-penny9-scan.py
+# quality: pass = may become PAPER_CANDIDATE; watch = never auto-buy; avoid = reject
+
+slug: penny9
+report_title: "Penny-9 daily scan"
+as_of: "2026-08-14"
+source: equibles_screener
+tier: primary
+min_garp_score: 60
+three_x_horizon: "3-12 months"
+
+tickers:
+  - ticker: IRWD
+    name: Ironwood Pharmaceuticals
+    quality: pass
+    role: primary_3x_rerate
+    three_x_usd: 13.0
+    note: "P/E stub vs specialty-pharma peers; old range $10-$14. Official GARP pending."
+
+  - ticker: PLX
+    name: Protalix BioTherapeutics
+    quality: watch
+    role: secondary
+    three_x_usd: 6.7
+    note: "P/E above biotech peers; milestone-lumpy. Not the 3x vehicle."
+
+  - ticker: IDN
+    name: Intellicheck
+    quality: watch
+    role: crash_watch
+    three_x_usd: 8.25
+    note: "−27% on 2026-08-14 after Q2. Too small/violent for a beginner buy."
+
+  - ticker: CRON
+    name: Cronos Group
+    quality: avoid
+    role: reject
+    note: "TTM EBIT negative; profit not from operations."
+
+  - ticker: NNBR
+    name: NN Inc
+    quality: avoid
+    role: reject
+    note: "Q2 2026 net loss; screener P/E was a trap."
+
+  - ticker: CHMI
+    name: Cherry Hill Mortgage
+    quality: avoid
+    role: reject
+    note: "Mortgage REIT — not GARP growth."
+
+  - ticker: BRBS
+    name: Blue Ridge Bankshares
+    quality: avoid
+    role: reject
+    note: "Regional bank; not the GARP sleeve."
+
+  - ticker: ANNA
+    name: AleAnna
+    quality: avoid
+    role: reject
+    note: "Tiny E&P; lumpy growth."
+
+  - ticker: SND
+    name: Smart Sand
+    quality: avoid
+    role: reject
+    note: "Cyclical frac sand; price moved through $5."

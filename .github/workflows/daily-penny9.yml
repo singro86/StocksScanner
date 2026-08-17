@@ -1,0 +1,49 @@
+name: Daily penny scans
+
+on:
+  schedule:
+    - cron: "30 8 * * 1-5"
+      timezone: America/Toronto
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Evaluate the 9 primary names and append time series
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
+        run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny9-universe.yaml
+
+      # Watch-only tier. decide() cannot promote these, so it never emits a candidate.
+      - name: Evaluate the 20 secondary names and append time series
+        if: always()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
+        run: python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny-secondary-watchlist.yaml
+
+      - name: Commit snapshot
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/timeseries/*.csv research/reports/*-scan.md
+          if git diff --cached --quiet; then
+            echo "No snapshot changes"
+          else
+            git commit -m "chore: daily penny scan snapshots"
+            git push
+          fi

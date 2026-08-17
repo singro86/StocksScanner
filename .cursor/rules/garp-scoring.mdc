@@ -1,0 +1,43 @@
+---
+description: GARP 5-dimension scoring thresholds, swap rules, MCP routing
+alwaysApply: true
+---
+
+# GARP Scoring
+
+## Style preset: `garp`
+
+| Dimension | Weight |
+|-----------|--------|
+| Thesis integrity | 25% |
+| Valuation attractiveness | 25% |
+| Fundamental momentum | 20% |
+| Catalyst proximity | 15% |
+| Technical trend | 15% |
+
+## Thresholds (from profile.yaml)
+
+- Min buy score: **60**
+- Swap delta required: **15** (candidate − holding)
+- Flag for review: holding score **< 50**
+
+## MCP routing
+
+| Task | MCP |
+|------|-----|
+| `score_tickers` | Rebalance-MCP |
+| `compare_swaps`, `run_backtest` | Rebalance-MCP |
+| Live quotes | FinanceKit |
+| SEC, earnings, screener | Equibles |
+| Monte Carlo, Sharpe | Portfolio-MCP |
+
+## Rotation rules
+
+- Re-score holdings weekly
+- Swap only when delta >= 15 AND valuation check passes (P/E vs 5-yr avg, PEG)
+- Trim positions exceeding 20% weight
+- Never chase momentum without valuation guardrail
+
+## Screener (monthly)
+
+Equibles screener: profitable, P/E < 40, revenue growth > 15%. Max 3 new candidates into `watchlist.yaml` screener_slots.

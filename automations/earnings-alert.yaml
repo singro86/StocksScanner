@@ -1,0 +1,21 @@
+name: "1M Portfolio — Earnings Alert"
+description: "Daily earnings calendar check during earnings season."
+workflow:
+  triggers:
+    - cron:
+        cron: "0 7 * * 1-5"
+  actions:
+    - mcp:
+        server:
+          name: equibles
+  prompts:
+    - |
+      Earnings watch for 1MillionPortfolio:
+
+      1. Read tickers from portfolio/holdings.yaml and portfolio/watchlist.yaml
+      2. Use Equibles for upcoming earnings within 14 days
+      3. For each: pre-earnings GARP re-score checklist
+      4. Save to research/reports/YYYY-MM-DD-earnings-watch.md
+
+      Batch Equibles calls to preserve daily quota (100/day).
+  memoryEnabled: true

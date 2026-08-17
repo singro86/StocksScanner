@@ -1,0 +1,51 @@
+---
+description: Portfolio YAML schema, CAD conventions, snapshot format
+globs: portfolio/**
+alwaysApply: false
+---
+
+# Portfolio Data Standards
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `profile.yaml` | Investor config, constraints, execution flags |
+| `holdings.yaml` | Live positions (synced from wsli) |
+| `watchlist.yaml` | 20 core GARP tickers + screener slots + scores |
+| `penny9-universe.yaml` | Primary 9-name GARP penny screen (daily job) |
+| `penny-secondary-watchlist.yaml` | Secondary 20-name watch-only penny list |
+| `peak-value.yaml` | Peak portfolio value for drawdown protocol |
+| `paper-trading.yaml` | Phase 0 graduation tracker |
+| `transactions.log.md` | Append-only trade log |
+
+## Conventions
+
+- Currency: **CAD** for portfolio totals; USD for US tickers with FX noted
+- Dates: ISO 8601 (`YYYY-MM-DD`)
+- Percentages: store as numbers (15 = 15%, not 0.15)
+- Never commit secrets, API keys, or wsli OAuth tokens
+
+## holdings.yaml schema
+
+```yaml
+last_synced: "YYYY-MM-DDTHH:MM:SSZ"
+source: wsli
+total_value_cad: 0
+cash_cad: 0
+positions:
+  - ticker: MSFT
+    shares: 0
+    avg_cost_cad: 0
+    market_value_cad: 0
+    weight_pct: 0
+    sleeve: mega_cap_garp
+```
+
+## Snapshots
+
+Monthly snapshots go in `portfolio/snapshots/YYYY-MM.yaml` with holdings, total value, benchmark (QQQ) return, and alpha.
+
+## After manual Wealthsimple trades
+
+Run `scripts/wsli/sync-portfolio.ps1` to reconcile holdings.yaml.

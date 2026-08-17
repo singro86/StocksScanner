@@ -1,0 +1,22 @@
+name: "1M Portfolio — Quarterly Goal Check"
+description: "Monte Carlo goal tracking toward $1M north star with honest milestones."
+workflow:
+  triggers:
+    - cron:
+        cron: "0 10 1 1,4,7,10 *"
+  actions:
+    - mcp:
+        server:
+          name: portfolio-mcp
+  prompts:
+    - |
+      Quarterly goal check for 1MillionPortfolio:
+
+      1. Read portfolio/profile.yaml goals and portfolio/holdings.yaml value
+      2. Run Portfolio-MCP Monte Carlo with contribution schedule
+      3. Show scenarios: 7%, 10%, 12% annual returns
+      4. Honest math: $1M north star vs ~$30K 2027 realistic milestone
+      5. Save to research/reports/YYYY-MM-DD-goal-tracker.md
+
+      Never over-promise Dec 2027 $1M without showing compound-growth math.
+  memoryEnabled: true

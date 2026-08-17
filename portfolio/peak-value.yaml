@@ -1,0 +1,21 @@
+# Tracks portfolio peak for 15% drawdown protocol
+
+peak_value_cad: 0
+peak_date: null
+current_value_cad: 0
+current_date: null
+drawdown_pct: 0
+mode: normal  # normal | review_only
+
+benchmark:
+  ticker: QQQ
+  peak_value: null
+  current_value: null
+  drawdown_pct: null
+
+history: []
+# - date: "2026-08-13"
+#   portfolio_value_cad: 5000
+#   peak_value_cad: 5000
+#   drawdown_pct: 0
+#   mode: normal
