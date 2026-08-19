@@ -47,6 +47,8 @@ Read and follow the matching skill in `.cursor/skills/` before acting:
 | Earnings | `earnings-watch` |
 | Pennies, 3x rerate, daily scan, secondary 20 | `penny-scanner` |
 | Learn trading | `trading-fundamentals` |
+| KPI / EDA / dashboards | `data-analyst` |
+| ML / experiments / features | `data-science` |
 
 ## 4. Rules (always obey)
 

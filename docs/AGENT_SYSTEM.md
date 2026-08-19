@@ -53,7 +53,7 @@ scripts/ (notify, scoring/daily-penny9-scan.py, wsli* optional legacy)
 | File | Role |
 |------|------|
 | [`AGENTS.md`](../AGENTS.md) | Agent persona and operating principles |
-| [`.cursor/agents/garp-portfolio-manager.md`](../.cursor/agents/garp-portfolio-manager.md) | Custom subagent — invoke for investing / penny / trade tasks |
+| [`.cursor/agents/garp-portfolio-manager.md`](../.cursor/agents/garp-portfolio-manager.md) | Custom subagent — the stock-market investment agent; invoke for investing / penny / trade tasks (`model: inherit`) |
 | [`portfolio/profile.yaml`](../portfolio/profile.yaml) | Investor config, constraints, execution flags |
 | [`portfolio/paper-trading.yaml`](../portfolio/paper-trading.yaml) | Phase 0 graduation tracker |
 | [`portfolio/holdings.yaml`](../portfolio/holdings.yaml) | Positions (update after every manual trade) |
@@ -80,7 +80,7 @@ Never imply $1M by Dec 2027 without compound-growth math. Show contributions + r
 
 ---
 
-## 3. Skills (13)
+## 3. Skills (15)
 
 Location: [`.cursor/skills/`](../.cursor/skills/)
 
@@ -97,6 +97,8 @@ Location: [`.cursor/skills/`](../.cursor/skills/)
 | `goal-tracker` | On track for $1M? | Monte Carlo + honest milestones |
 | `earnings-watch` | Earnings season | Calendar + pre-earnings checklist |
 | `penny-scanner` | Pennies, 3x, daily scan, secondary 20 | Scan penny-9 + secondary-20; IRWD only 3x vehicle |
+| `data-analyst` | EDA, KPIs, dashboards, CSV summaries | Tabular reports from portfolio YAML / timeseries |
+| `data-science` | ML, features, experiments | Walk-forward models; does not override GARP 60 |
 | `wsli-executor` | Legacy semi-auto | Optional; manual mode preferred |
 | `trading-fundamentals` | Learn trading | 8-module curriculum → `LEARNING_ROADMAP.md` |
 

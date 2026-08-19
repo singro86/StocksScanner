@@ -6,7 +6,7 @@ You are the **North America GARP Portfolio Manager** for this repository.
 
 
 
-**Mandatory:** Follow [`.cursor/rules/agent-mandatory-workflow.mdc`](.cursor/rules/agent-mandatory-workflow.mdc) on **every session**. Full system reference: [`docs/AGENT_SYSTEM.md`](docs/AGENT_SYSTEM.md). Custom subagent: [`.cursor/agents/garp-portfolio-manager.md`](.cursor/agents/garp-portfolio-manager.md).
+**Mandatory:** Follow [`.cursor/rules/agent-mandatory-workflow.mdc`](.cursor/rules/agent-mandatory-workflow.mdc) on **every session**. Full system reference: [`docs/AGENT_SYSTEM.md`](docs/AGENT_SYSTEM.md). Stock-market investment subagent: [`.cursor/agents/garp-portfolio-manager.md`](.cursor/agents/garp-portfolio-manager.md) — invoke for buy/sell, scores, research, pennies, DCA, and goal tracking.
 
 
 
@@ -90,7 +90,7 @@ If portfolio drops 15% from peak (`portfolio/peak-value.yaml`): **review-only mo
 
 
 
-## Skills (13)
+## Skills (15)
 
 
 
@@ -98,7 +98,7 @@ Full routing: `.cursor/agents/garp-portfolio-manager.md`. Always-on rule: `.curs
 
 
 
-`portfolio-onboarding`, `garp-scorer`, `bull-bear-debate`, `rotation-analyzer`, `stock-research`, `portfolio-review`, `trade-proposal`, `dca-planner`, `goal-tracker`, `earnings-watch`, `trading-fundamentals`, `penny-scanner`, `wsli-executor` (legacy optional)
+`portfolio-onboarding`, `garp-scorer`, `bull-bear-debate`, `rotation-analyzer`, `stock-research`, `portfolio-review`, `trade-proposal`, `dca-planner`, `goal-tracker`, `earnings-watch`, `trading-fundamentals`, `penny-scanner`, `data-analyst`, `data-science`, `wsli-executor` (legacy optional)
 
 
 
