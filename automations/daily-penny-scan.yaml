@@ -1,9 +1,9 @@
-name: "1M Portfolio — Daily penny scan"
-description: "Weekday scan of the 9-name primary penny universe and the 20-name secondary watchlist. Appends time series, writes paper-only recommendation. Never places trades."
+name: "1M Portfolio — Daily morning digest"
+description: "Weekday 7 AM Mountain scan of mega-cap core, primary penny-9, and secondary-20. Appends time series, writes paper-only recommendation, includes Fed/US–Iran/gold macro brief. Never places trades."
 workflow:
   triggers:
     - cron:
-        cron: "30 8 * * 1-5"
+        cron: "0 7 * * 1-5"
   actions: []
   prompts:
     - |
@@ -12,9 +12,10 @@ workflow:
 
       1. Read portfolio/profile.yaml and portfolio/peak-value.yaml
       2. Run: python scripts/scoring/daily-penny9-scan.py --digest
-      3. Summarize the ranked table: Buy / Sell / Hold / Watch / Avoid. Buy is paper-only.
-      4. Secondary names are all quality: watch — never promote them
-      5. If paper trading active, say so. This job never calls wsli and never sets TRADE_APPROVED.
+      3. Summarize: mega-cap core table (NVDA/MSFT/GOOGL/AAPL, display-only), then penny Buy / Sell / Hold / Watch / Avoid. Buy is paper-only.
+      4. Note the Markets & macro block (gold GC=F, Fed, US–Iran) is produced by the script via Yahoo + Google News RSS — no MCP required.
+      5. Secondary names are all quality: watch — never promote them. Mega-caps never take the paper Buy slot.
+      6. If paper trading active, say so. This job never calls wsli and never sets TRADE_APPROVED.
 
       Include the not-financial-advice disclaimer.
   agentOptions:
@@ -26,5 +27,6 @@ gitConfig:
 
 notes: |
   Companion to .github/workflows/daily-penny9.yml (the GitHub Action is the durable runner).
+  Schedule intent: weekdays 7:00 AM America/Denver (Mountain Time). Re-import this YAML in Cursor Automations if the cloud cron does not honor Mountain TZ — Actions remains authoritative.
   This Cursor Automation is optional if Actions is already committing snapshots.
   Needs tzdata on the runner: uv run --python 3.12 --with tzdata --no-project python ...
