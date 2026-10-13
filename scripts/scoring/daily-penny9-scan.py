@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Weekday scanner for penny-stock universes.
+"""Weekday scanner for mega-cap core + penny-stock universes.
 
 Fetches Yahoo daily bars (not Equibles — reserve that quota), appends
 research/timeseries/<slug>.csv, writes markdown briefs, and emails one
-ranked HTML digest covering both lists. Never places trades.
+ranked HTML digest. Never places trades.
 
-Defaults to a combined digest of the 9-name primary list and the 20-name
-secondary watchlist. Pass --universe to scan a single list.
+Defaults to a combined digest: mega-cap core (NVDA/MSFT/GOOGL/AAPL) pinned
+at the top, primary 9 + secondary 20 penny picks, plus a Markets & macro
+brief (gold, Fed, US–Iran). Pass --universe to scan a single list.
 """
 
 from __future__ import annotations
@@ -19,7 +20,9 @@ import os
 import ssl
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from statistics import mean
@@ -28,12 +31,20 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[2]
 PRIMARY_UNIVERSE = ROOT / "portfolio" / "penny9-universe.yaml"
 SECONDARY_UNIVERSE = ROOT / "portfolio" / "penny-secondary-watchlist.yaml"
+MEGA_UNIVERSE = ROOT / "portfolio" / "mega-cap-scan-universe.yaml"
 PROFILE = ROOT / "portfolio" / "profile.yaml"
 PEAK = ROOT / "portfolio" / "peak-value.yaml"
 HOLDINGS = ROOT / "portfolio" / "holdings.yaml"
 TIMESERIES = ROOT / "research" / "timeseries"
 REPORTS = ROOT / "research" / "reports"
 LOCAL_ENV_FILES = (ROOT / "config" / "wsli.env", ROOT / ".env")
+TZ_NAME = "America/Phoenix"  # MST year-round (no DST)
+GOLD_TICKER = "GC=F"
+NEWS_TOPICS = (
+    ("US–Iran", "US Iran"),
+    ("Federal Reserve", "Federal Reserve"),
+    ("Gold", "gold price"),
+)
 
 REC_RANK = {"Buy (paper)": 0, "Buy": 0, "Sell": 1, "Hold": 2, "Watch": 3, "Avoid": 4}
 REC_TO_ACTION = {
@@ -71,16 +82,17 @@ def load_local_env() -> None:
 
 
 def _tz():
-    for key in ("America/Toronto", "America/New_York", "EST5EDT"):
+    for key in (TZ_NAME, "America/Phoenix", "MST7", "America/Denver"):
         try:
             return ZoneInfo(key)
         except Exception:
             continue
-    return timezone(timedelta(hours=-4))
+    return timezone(timedelta(hours=-7))
 
 
 TZ = _tz()
 YAHOO = "https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=3mo&interval=1d"
+GOOGLE_NEWS_RSS = "https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
 UA = "Mozilla/5.0 (compatible; 1MillionPortfolio/1.0; daily-penny9-scan)"
 
 CSV_FIELDS = [
@@ -156,7 +168,8 @@ def paper_trading_complete() -> bool:
 
 
 def fetch_chart(ticker: str) -> dict:
-    req = urllib.request.Request(YAHOO.format(ticker=ticker), headers={"User-Agent": UA})
+    encoded = urllib.parse.quote(ticker, safe="")
+    req = urllib.request.Request(YAHOO.format(ticker=encoded), headers={"User-Agent": UA})
     ctx = ssl.create_default_context()
     with urllib.request.urlopen(req, timeout=30, context=ctx) as resp:
         payload = json.loads(resp.read().decode("utf-8"))
@@ -171,6 +184,163 @@ def fetch_chart(ticker: str) -> dict:
     if len(closes) < 21:
         raise RuntimeError(f"{ticker}: need 21 daily closes, got {len(closes)}")
     return {"rows": closes, "currency": result["meta"].get("currency", "USD")}
+
+
+def fetch_gold_quote() -> dict:
+    """Yahoo front-month gold futures (GC=F). Soft structure for digest macro block."""
+    chart = fetch_chart(GOLD_TICKER)
+    series = chart["rows"]
+    closes = [c for _, c, _ in series]
+    last_ts, last_close, _ = series[-1]
+    day = datetime.fromtimestamp(last_ts, tz=timezone.utc).date().isoformat()
+    pct_1d = pct(last_close, closes[-2] if len(closes) >= 2 else None)
+    return {
+        "ticker": GOLD_TICKER,
+        "close": round(last_close, 2),
+        "pct_1d": None if pct_1d is None else round(pct_1d, 3),
+        "day": day,
+        "source": "Yahoo Finance",
+        "error": None,
+    }
+
+
+def fetch_news_bullets(query: str, limit: int = 2) -> list[dict]:
+    """Google News RSS headlines. Returns [{title, link}] up to limit."""
+    url = GOOGLE_NEWS_RSS.format(query=urllib.parse.quote_plus(query))
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    ctx = ssl.create_default_context()
+    with urllib.request.urlopen(req, timeout=20, context=ctx) as resp:
+        raw = resp.read()
+    root = ET.fromstring(raw)
+    items: list[dict] = []
+    for item in root.findall(".//item"):
+        title = (item.findtext("title") or "").strip()
+        link = (item.findtext("link") or "").strip()
+        if not title:
+            continue
+        items.append({"title": title, "link": link})
+        if len(items) >= limit:
+            break
+    return items
+
+
+def build_macro_brief(day: str) -> dict:
+    """Gold spot + Fed / US–Iran / gold headlines. Soft-fail per feed."""
+    gold: dict = {
+        "ticker": GOLD_TICKER,
+        "close": None,
+        "pct_1d": None,
+        "day": day,
+        "source": "Yahoo Finance",
+        "error": None,
+    }
+    try:
+        gold = fetch_gold_quote()
+    except Exception as exc:  # noqa: BLE001 — digest must still send
+        gold["error"] = str(exc)
+
+    topics: list[dict] = []
+    for label, query in NEWS_TOPICS:
+        entry: dict = {"label": label, "query": query, "bullets": [], "error": None}
+        try:
+            entry["bullets"] = fetch_news_bullets(query, limit=2)
+            if not entry["bullets"]:
+                entry["error"] = "No headlines returned"
+        except Exception as exc:  # noqa: BLE001
+            entry["error"] = str(exc)
+        topics.append(entry)
+
+    return {"day": day, "gold": gold, "topics": topics, "source": "Google News RSS + Yahoo Finance"}
+
+
+def format_macro_markdown(macro: dict) -> str:
+    gold = macro.get("gold") or {}
+    lines = ["## Markets & macro", ""]
+    if gold.get("error"):
+        lines.append(f"**Gold ({GOLD_TICKER}):** unavailable — {gold['error']}")
+    else:
+        lines.append(
+            f"**Gold ({GOLD_TICKER}):** ${fmt(gold.get('close'))} "
+            f"({signed(gold.get('pct_1d'))}% 1d) — {gold.get('source', 'Yahoo Finance')}, "
+            f"{gold.get('day', macro.get('day', ''))}."
+        )
+    lines.append("")
+    for topic in macro.get("topics") or []:
+        lines.append(f"### {topic['label']}")
+        if topic.get("error"):
+            lines.append(f"- Unavailable: {topic['error']}")
+        else:
+            for b in topic.get("bullets") or []:
+                title = b.get("title") or ""
+                link = b.get("link") or ""
+                if link:
+                    lines.append(f"- [{title}]({link})")
+                else:
+                    lines.append(f"- {title}")
+        lines.append("")
+    lines.append(
+        f"_Headlines: Google News RSS · Gold: Yahoo Finance · as of {macro.get('day', '')} {TZ_NAME}. "
+        "Educational summary only — not investment advice._"
+    )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def format_macro_html(macro: dict) -> str:
+    gold = macro.get("gold") or {}
+    if gold.get("error"):
+        gold_line = (
+            f'<p style="margin:0 0 12px 0;font-size:14px;">'
+            f'<strong>Gold ({html.escape(GOLD_TICKER)}):</strong> unavailable — '
+            f'{html.escape(str(gold["error"]))}</p>'
+        )
+    else:
+        gold_line = (
+            f'<p style="margin:0 0 12px 0;font-size:14px;">'
+            f'<strong>Gold ({html.escape(GOLD_TICKER)}):</strong> '
+            f'${fmt(gold.get("close"))} ({_chg_html(gold.get("pct_1d"))} 1d) · '
+            f'{html.escape(str(gold.get("source") or "Yahoo Finance"))}, '
+            f'{html.escape(str(gold.get("day") or ""))}</p>'
+        )
+
+    topic_blocks: list[str] = []
+    for topic in macro.get("topics") or []:
+        label = html.escape(topic.get("label") or "")
+        if topic.get("error"):
+            body = f'<li style="margin:0 0 4px 0;color:#667085;">Unavailable: {html.escape(str(topic["error"]))}</li>'
+        else:
+            items = []
+            for b in topic.get("bullets") or []:
+                title = html.escape(b.get("title") or "")
+                link = html.escape(b.get("link") or "", quote=True)
+                if link:
+                    items.append(
+                        f'<li style="margin:0 0 6px 0;line-height:1.45;">'
+                        f'<a href="{link}" style="color:#175cd3;text-decoration:none;">{title}</a></li>'
+                    )
+                else:
+                    items.append(f'<li style="margin:0 0 6px 0;line-height:1.45;">{title}</li>')
+            body = "".join(items) or '<li style="color:#667085;">No headlines</li>'
+        topic_blocks.append(
+            f'<div style="margin:0 0 14px 0;">'
+            f'<div style="font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;'
+            f'color:#475467;margin-bottom:6px;">{label}</div>'
+            f'<ul style="margin:0;padding-left:18px;font-size:13px;color:#344054;">{body}</ul></div>'
+        )
+
+    return f"""
+        <tr><td style="padding:8px 28px 24px 28px;">
+          <div style="border:1px solid #eaecf0;border-radius:12px;padding:16px 18px;background:#f9fafb;">
+            <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#667085;font-weight:700;">Markets &amp; macro</div>
+            <div style="font-size:18px;font-weight:800;margin:4px 0 12px 0;color:#101828;">US–Iran · Fed · Gold</div>
+            {gold_line}
+            {''.join(topic_blocks)}
+            <p style="margin:8px 0 0 0;font-size:11px;color:#98a2b3;line-height:1.45;">
+              Headlines: Google News RSS · Gold: Yahoo Finance · {html.escape(str(macro.get('day') or ''))} {TZ_NAME}.
+              Educational summary only — not investment advice.
+            </p>
+          </div>
+        </td></tr>"""
 
 
 def rsi(values: list[float], period: int = 14) -> float | None:
@@ -347,7 +517,34 @@ def counts(rows: list[dict]) -> dict[str, int]:
     return out
 
 
-def build_report(day: str, gate_note: str, rows: list[dict], errors: list[str], meta: dict) -> str:
+def _mega_markdown(mega_rows: list[dict]) -> str:
+    if not mega_rows:
+        return ""
+    lines = [
+        "## Mega-cap core",
+        "",
+        "| Ticker | Name | Close | 1d % | 5d % | SMA20 | RSI14 | Note |",
+        "|--------|------|------:|-----:|-----:|------:|------:|------|",
+    ]
+    for r in mega_rows:
+        lines.append(
+            f"| {r['ticker']} | {r.get('name', '')} | {fmt(r['close'])} | "
+            f"{signed(r['pct_1d'])} | {signed(r['pct_5d'])} | {fmt(r['sma20'])} | "
+            f"{fmt(r['rsi14'], 1)} | Display-only (watch) — not a paper Buy from this job. |"
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
+def build_report(
+    day: str,
+    gate_note: str,
+    rows: list[dict],
+    errors: list[str],
+    meta: dict,
+    mega_rows: list[dict] | None = None,
+    macro: dict | None = None,
+) -> str:
     ranked = sorted(rows, key=rank_key)
     buys = [r for r in ranked if r["recommendation"] in {"Buy (paper)", "Buy"}]
     today_line = "NONE — no buy today."
@@ -374,13 +571,18 @@ def build_report(day: str, gate_note: str, rows: list[dict], errors: list[str], 
     if errors:
         err_block = "\n## Fetch errors\n\n" + "\n".join(f"- {e}" for e in errors) + "\n"
 
+    mega_block = _mega_markdown(mega_rows or [])
+    if mega_block and not mega_block.endswith("\n\n"):
+        mega_block = mega_block.rstrip("\n") + "\n\n"
+    macro_block = format_macro_markdown(macro) if macro else ""
+
     return f"""# {meta['title']} — {day}
 
 > I am an AI research assistant, not a licensed financial advisor. This is educational information, not personalized financial advice. Consider a qualified advisor for your situation.
 
 **{gate_note}**
 
-## What to buy today (from {len(rows)} names)
+{mega_block}## What to buy today (from {len(rows)} names)
 
 {today_line}
 
@@ -388,12 +590,13 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 
 {chr(10).join(table)}
 
-Prices: Yahoo Finance daily bars, {day} America/Toronto. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
+Prices: Yahoo Finance daily bars, {day} {TZ_NAME}. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
-{err_block}
+{macro_block}{err_block}
 ## Rules
 
 - Ranked Buy → Sell → Hold → Watch → Avoid. Max one Buy (paper) per morning.
+- Mega-cap core (NVDA / MSFT / GOOGL / AAPL) is display-only in the digest top section — never the morning paper Buy.
 - `Avoid` never becomes a buy because it bounced. `Sell` only if you already hold that avoid-quality name.
 - `Watch` is not auto-promoted after a crash.
 - This job never calls wsli and never sets TRADE_APPROVED.
@@ -415,7 +618,53 @@ def _chg_html(n: float | None) -> str:
     return f'<span style="color:{color};font-variant-numeric:tabular-nums;">{n:+.2f}%</span>'
 
 
-def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[str]) -> str:
+def _mega_table_html(mega_rows: list[dict]) -> str:
+    if not mega_rows:
+        return ""
+    body_rows = []
+    for i, r in enumerate(mega_rows, 1):
+        bg = "#f9fafb" if i % 2 == 0 else "#ffffff"
+        name = html.escape(r.get("name") or "")
+        ticker = html.escape(r["ticker"])
+        body_rows.append(
+            f'<tr style="background:{bg};">'
+            f'<td style="padding:12px 8px;width:90px;"><strong style="font-size:15px;">{ticker}</strong>'
+            f'<div style="font-size:11px;color:#667085;">{name}</div></td>'
+            f'<td style="padding:12px 8px;text-align:right;font-variant-numeric:tabular-nums;width:70px;">${fmt(r["close"])}</td>'
+            f'<td style="padding:12px 8px;text-align:right;width:62px;">{_chg_html(r["pct_1d"])}</td>'
+            f'<td style="padding:12px 8px;text-align:right;width:62px;">{_chg_html(r["pct_5d"])}</td>'
+            f'<td style="padding:12px 10px 12px 12px;font-size:13px;line-height:1.45;color:#344054;">'
+            f'Display-only · RSI {fmt(r.get("rsi14"), 1)} · SMA20 ${fmt(r.get("sma20"))}</td>'
+            f"</tr>"
+        )
+    return f"""
+        <tr><td style="padding:20px 16px 8px 16px;">
+          <div style="padding:0 12px 10px 12px;">
+            <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#667085;font-weight:700;">Scanner · top section</div>
+            <div style="font-size:18px;font-weight:800;margin-top:2px;color:#101828;">Mega-cap core</div>
+            <div style="font-size:12px;color:#667085;margin-top:2px;">NVDA · MSFT · GOOGL · AAPL — watch only, not the morning paper Buy</div>
+          </div>
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border:1px solid #eaecf0;border-radius:12px;overflow:hidden;font-size:13px;">
+            <tr style="background:#1d2939;color:#ffffff;">
+              <th style="padding:10px 8px;text-align:left;width:90px;">Ticker</th>
+              <th style="padding:10px 8px;text-align:right;width:70px;">Price</th>
+              <th style="padding:10px 8px;text-align:right;width:62px;">1d</th>
+              <th style="padding:10px 8px;text-align:right;width:62px;">5d</th>
+              <th style="padding:10px 12px;text-align:left;">Note</th>
+            </tr>
+            {''.join(body_rows)}
+          </table>
+        </td></tr>"""
+
+
+def build_digest_html(
+    day: str,
+    gate_note: str,
+    rows: list[dict],
+    errors: list[str],
+    mega_rows: list[dict] | None = None,
+    macro: dict | None = None,
+) -> str:
     ranked = sorted(rows, key=rank_key)
     picks = top_email_rows(rows)
     n = counts(rows)
@@ -470,6 +719,9 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
         items = "".join(f"<li>{html.escape(e)}</li>" for e in errors)
         err_html = f'<p style="color:#b42318;font-size:13px;"><strong>Fetch errors</strong></p><ul>{items}</ul>'
 
+    mega_html = _mega_table_html(mega_rows or [])
+    macro_html = format_macro_html(macro) if macro else ""
+
     return f"""<!DOCTYPE html>
 <html><body style="margin:0;padding:0;background:#eef2f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#101828;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef2f6;padding:24px 12px;">
@@ -477,10 +729,13 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
       <table role="presentation" width="760" cellspacing="0" cellpadding="0" style="max-width:760px;background:#ffffff;border-radius:16px;overflow:hidden;">
         <tr><td style="background:#0b1220;color:#ffffff;padding:24px 28px;">
           <div style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#98a2b3;">1MillionPortfolio · TFSA paper scan</div>
-          <div style="font-size:24px;font-weight:800;margin-top:6px;">Top 10 penny picks</div>
-          <div style="font-size:14px;color:#d0d5dd;margin-top:4px;">{html.escape(day)} · America/Toronto · Yahoo daily bars</div>
+          <div style="font-size:24px;font-weight:800;margin-top:6px;">Morning digest</div>
+          <div style="font-size:14px;color:#d0d5dd;margin-top:4px;">{html.escape(day)} · {TZ_NAME} · Yahoo daily bars</div>
         </td></tr>
+        {mega_html}
         <tr><td style="padding:20px 28px 8px 28px;">
+          <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#667085;font-weight:700;margin-bottom:4px;">Penny sleeve</div>
+          <div style="font-size:18px;font-weight:800;margin:0 0 10px 0;color:#101828;">Top 10 penny picks</div>
           <p style="margin:0 0 12px 0;font-size:15px;line-height:1.5;">{html.escape(headline)}</p>
           <p style="margin:0 0 16px 0;font-size:13px;color:#667085;">{html.escape(gate_note)}</p>
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>{card_html}</tr></table>
@@ -499,9 +754,10 @@ def build_digest_html(day: str, gate_note: str, rows: list[dict], errors: list[s
             {''.join(body_rows)}
           </table>
         </td></tr>
+        {macro_html}
         <tr><td style="padding:0 28px 24px 28px;font-size:12px;color:#667085;line-height:1.55;">
           {err_html}
-          <p style="margin:0 0 8px 0;">Table shows the top {len(picks)} of {len(rows)} names, ranked Buy → Sell → Hold → Watch → Avoid so Buy/Sell sit first. SMA20 and RSI stay in the saved markdown report. Official GARP scores are not computed here — live tickets still need GARP ≥ 60.</p>
+          <p style="margin:0 0 8px 0;">Penny table shows the top {len(picks)} of {len(rows)} names, ranked Buy → Sell → Hold → Watch → Avoid so Buy/Sell sit first. Mega-caps stay pinned above and never take the paper Buy slot. SMA20 and RSI stay in the saved markdown report. Official GARP scores are not computed here — live tickets still need GARP ≥ 60.</p>
           <p style="margin:0;">I am an AI research assistant, not a licensed financial advisor. This is educational information, not personalized financial advice. This job never calls wsli and never sets TRADE_APPROVED.</p>
         </td></tr>
       </table>
@@ -596,7 +852,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument(
         "--digest",
         action="store_true",
-        help="Scan primary 9 + secondary 20 and send one ranked email.",
+        help="Scan mega-cap core + primary 9 + secondary 20, add macro brief, send one ranked email.",
     )
     p.add_argument("--no-email", action="store_true", help="Write reports only; skip Resend.")
     return p.parse_args(argv)
@@ -636,13 +892,23 @@ def main(argv: list[str] | None = None) -> int:
             )
         return 0
 
+    mega_rows, mega_err, mega_meta = scan_universe(
+        MEGA_UNIVERSE, allow, paper, held, "Mega-cap"
+    )
+    # Mega-caps are digest display-only — never the morning paper Buy.
+    for r in mega_rows:
+        if r["recommendation"] in {"Buy (paper)", "Buy", "Sell"}:
+            r["recommendation"] = "Watch"
+            r["reason"] = "Mega-cap core is display-only in the digest — not a paper Buy from this job."
+            r["action"] = "WATCH"
+
     primary_rows, primary_err, primary_meta = scan_universe(
         PRIMARY_UNIVERSE, allow, paper, held, "Primary 9"
     )
     secondary_rows, secondary_err, secondary_meta = scan_universe(
         SECONDARY_UNIVERSE, allow, paper, held, "Secondary 20"
     )
-    if not primary_rows and not secondary_rows:
+    if not primary_rows and not secondary_rows and not mega_rows:
         print("No quotes fetched.", file=sys.stderr)
         return 1
 
@@ -654,27 +920,37 @@ def main(argv: list[str] | None = None) -> int:
             r["reason"] = "Secondary list is watch-only until GARP ≥ 60 and an earnings-quality review."
             r["action"] = "WATCH"
 
+    if mega_rows:
+        write_universe_outputs(day, gate_note, mega_rows, mega_err, mega_meta)
     if primary_rows:
         write_universe_outputs(day, gate_note, primary_rows, primary_err, primary_meta)
     if secondary_rows:
         write_universe_outputs(day, gate_note, secondary_rows, secondary_err, secondary_meta)
 
     all_rows = primary_rows + secondary_rows
-    all_err = primary_err + secondary_err
+    all_err = mega_err + primary_err + secondary_err
+    macro = build_macro_brief(day)
     digest_meta = {
-        "title": "Penny digest (primary 9 + secondary 20)",
-        "universe_rel": "portfolio/penny9-universe.yaml + portfolio/penny-secondary-watchlist.yaml",
+        "title": "Morning digest (mega-cap + primary 9 + secondary 20)",
+        "universe_rel": (
+            "portfolio/mega-cap-scan-universe.yaml + portfolio/penny9-universe.yaml "
+            "+ portfolio/penny-secondary-watchlist.yaml"
+        ),
         "primary": primary_meta.get("primary"),
     }
-    digest = build_report(day, gate_note, all_rows, all_err, digest_meta)
+    digest = build_report(
+        day, gate_note, all_rows, all_err, digest_meta, mega_rows=mega_rows, macro=macro
+    )
     digest_path = REPORTS / f"{day}-penny-digest-scan.md"
     digest_path.write_text(digest, encoding="utf-8")
     print(digest_path)
 
     if not args.no_email:
-        html_body = build_digest_html(day, gate_note, all_rows, all_err)
+        html_body = build_digest_html(
+            day, gate_note, all_rows, all_err, mega_rows=mega_rows, macro=macro
+        )
         send_email(
-            f"1M Portfolio — Penny digest {day}",
+            f"1M Portfolio — Morning digest {day}",
             digest,
             html_body=html_body,
             tag="penny-digest",

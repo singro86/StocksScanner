@@ -1,0 +1,35 @@
+# Mega-cap core sleeve for the weekday digest email (top section).
+# Display-only: quality watch so these never steal the single paper Buy.
+# Daily job: scripts/scoring/daily-penny9-scan.py --digest
+
+slug: mega-cap
+report_title: "Mega-cap core scan"
+as_of: "2026-10-13"
+source: cold_start_watchlist
+tier: mega_cap_core
+min_garp_score: 60
+
+tickers:
+  - ticker: NVDA
+    name: NVIDIA
+    quality: watch
+    role: mega_cap_core
+    note: "Cold-start / semis AI sleeve. Digest display only — not a paper Buy from this job."
+
+  - ticker: MSFT
+    name: Microsoft
+    quality: watch
+    role: mega_cap_core
+    note: "Cold-start mega-cap GARP. Digest display only."
+
+  - ticker: GOOGL
+    name: Alphabet
+    quality: watch
+    role: mega_cap_core
+    note: "Cold-start mega-cap GARP (Class A). Digest display only."
+
+  - ticker: AAPL
+    name: Apple
+    quality: watch
+    role: mega_cap_core
+    note: "Watchlist mega-cap. Digest display only."

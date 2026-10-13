@@ -2,8 +2,9 @@ name: Daily penny scans
 
 on:
   schedule:
-    - cron: "30 8 * * 1-5"
-      timezone: America/Toronto
+    # Every day 7:00 AM Mountain Standard Time (America/Phoenix stays on MST year-round)
+    - cron: "0 7 * * *"
+      timezone: America/Phoenix
   workflow_dispatch:
 
 permissions:
@@ -19,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Scan both lists and email one ranked digest
+      - name: Scan mega-cap + pennies, macro brief, email digest
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
@@ -35,6 +36,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No snapshot changes"
           else
-            git commit -m "chore: daily penny scan snapshots"
+            git commit -m "chore: daily morning digest snapshots"
             git push
           fi

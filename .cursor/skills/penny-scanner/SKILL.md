@@ -1,14 +1,15 @@
 ---
 name: penny-scanner
-description: Screens and daily-scans the GARP penny universes — the 9-name primary list and the 20-name secondary watchlist. Use when the user asks for penny stocks, 3x rerate, daily scan, secondary watchlist, IRWD, or sub-$5 names.
+description: Screens and daily-scans the GARP penny universes — the 9-name primary list and the 20-name secondary watchlist — plus the mega-cap digest sleeve. Use when the user asks for penny stocks, 3x rerate, daily scan, secondary watchlist, IRWD, mega-cap digest, or sub-$5 names.
 ---
 
 # Penny Scanner
 
-Two universes, one script. Never mix them into `watchlist.yaml` core slots without a GARP score >= 60.
+Three sleeves, one script. Never mix penny names into `watchlist.yaml` core slots without a GARP score >= 60. Mega-caps are digest display-only.
 
 | Universe | File | Quality | Daily outputs |
 |----------|------|---------|---------------|
+| Mega-cap core (4) | `portfolio/mega-cap-scan-universe.yaml` | all `watch` (display-only) | `research/timeseries/mega-cap.csv`, `research/reports/YYYY-MM-DD-mega-cap-scan.md` |
 | Primary (9) | `portfolio/penny9-universe.yaml` | mix of pass / watch / avoid | `research/timeseries/penny9.csv`, `research/reports/YYYY-MM-DD-penny9-scan.md` |
 | Secondary (20) | `portfolio/penny-secondary-watchlist.yaml` | all `watch` | `research/timeseries/penny-secondary.csv`, `research/reports/YYYY-MM-DD-penny-secondary-scan.md` |
 
@@ -18,7 +19,7 @@ Two universes, one script. Never mix them into `watchlist.yaml` core slots witho
 uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py --digest
 ```
 
-That writes both time series, both markdown briefs, plus one ranked HTML email (`Buy / Sell / Hold / Watch / Avoid`) covering all 29 names. The GitHub Action `.github/workflows/daily-penny9.yml` runs this weekdays at 8:30 America/Toronto. This job never calls `wsli` and never sets `TRADE_APPROVED`.
+That writes mega-cap + both penny time series and briefs, a Markets & macro block (gold `GC=F`, Fed, US–Iran via Yahoo + Google News RSS), plus one ranked HTML email. Mega-caps are pinned at the top of the email; penny names are ranked `Buy / Sell / Hold / Watch / Avoid`. The GitHub Action `.github/workflows/daily-penny9.yml` runs this **every day at 7:00 America/Phoenix (MST)**. This job never calls `wsli` and never sets `TRADE_APPROVED`.
 
 ## Quality flags (enforced in `decide()`)
 
