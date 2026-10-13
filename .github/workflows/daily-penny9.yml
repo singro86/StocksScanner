@@ -2,8 +2,9 @@ name: Daily penny scans
 
 on:
   schedule:
-    - cron: "0 7 * * 1-5"
-      timezone: America/Denver
+    # Every day 7:00 AM Mountain Standard Time (America/Phoenix stays on MST year-round)
+    - cron: "0 7 * * *"
+      timezone: America/Phoenix
   workflow_dispatch:
 
 permissions:

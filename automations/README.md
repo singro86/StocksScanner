@@ -5,8 +5,8 @@ Import these workflows via **Cursor → Automations → New** and copy prompts/s
 | File | Schedule | Purpose |
 |------|----------|---------|
 | `daily-garp-scan.yaml` | Weekdays 8:30 AM ET | Score watchlist, swap candidates |
-| `daily-penny-scan.yaml` | Weekdays 7:00 AM MT (`America/Denver`) | Cursor Automation companion — mega-cap + both penny universes via `penny-scanner` |
-| GitHub Action `daily-penny9.yml` | Weekdays 7:00 AM MT | Durable runner: mega-cap core + primary 9 + secondary 20, macro brief, email digest |
+| `daily-penny-scan.yaml` | Daily 7:00 AM MST (`America/Phoenix`) | Cursor Automation companion — mega-cap + both penny universes via `penny-scanner` |
+| GitHub Action `daily-penny9.yml` | Daily 7:00 AM MST | Durable runner: mega-cap core + primary 9 + secondary 20, macro brief, email digest |
 | `weekly-portfolio-pulse.yaml` | Monday 8:00 AM | Full portfolio review |
 | `monthly-dca-review.yaml` | 1st of month 9:00 AM | DCA allocation plan |
 | `earnings-alert.yaml` | Weekdays 7:00 AM | Earnings calendar + checklist |
@@ -20,7 +20,7 @@ Import these workflows via **Cursor → Automations → New** and copy prompts/s
 
 ## GitHub Action — penny morning job
 
-[`.github/workflows/daily-penny9.yml`](../.github/workflows/daily-penny9.yml) runs weekdays at **7:00 AM America/Denver** (Mountain Time). It does **not** use Cursor MCP. Local runs of `daily-penny9-scan.py` load `config/wsli.env` automatically.
+[`.github/workflows/daily-penny9.yml`](../.github/workflows/daily-penny9.yml) runs **every day at 7:00 AM America/Phoenix** (MST year-round). It does **not** use Cursor MCP. Local runs of `daily-penny9-scan.py` load `config/wsli.env` automatically.
 
 1. Repo is `https://github.com/singro86/StocksScanner`
 2. Add repository secrets `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`

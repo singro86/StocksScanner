@@ -19,7 +19,7 @@ Three sleeves, one script. Never mix penny names into `watchlist.yaml` core slot
 uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py --digest
 ```
 
-That writes mega-cap + both penny time series and briefs, a Markets & macro block (gold `GC=F`, Fed, US–Iran via Yahoo + Google News RSS), plus one ranked HTML email. Mega-caps are pinned at the top of the email; penny names are ranked `Buy / Sell / Hold / Watch / Avoid`. The GitHub Action `.github/workflows/daily-penny9.yml` runs this weekdays at **7:00 America/Denver**. This job never calls `wsli` and never sets `TRADE_APPROVED`.
+That writes mega-cap + both penny time series and briefs, a Markets & macro block (gold `GC=F`, Fed, US–Iran via Yahoo + Google News RSS), plus one ranked HTML email. Mega-caps are pinned at the top of the email; penny names are ranked `Buy / Sell / Hold / Watch / Avoid`. The GitHub Action `.github/workflows/daily-penny9.yml` runs this **every day at 7:00 America/Phoenix (MST)**. This job never calls `wsli` and never sets `TRADE_APPROVED`.
 
 ## Quality flags (enforced in `decide()`)
 

@@ -38,7 +38,7 @@ HOLDINGS = ROOT / "portfolio" / "holdings.yaml"
 TIMESERIES = ROOT / "research" / "timeseries"
 REPORTS = ROOT / "research" / "reports"
 LOCAL_ENV_FILES = (ROOT / "config" / "wsli.env", ROOT / ".env")
-TZ_NAME = "America/Denver"
+TZ_NAME = "America/Phoenix"  # MST year-round (no DST)
 GOLD_TICKER = "GC=F"
 NEWS_TOPICS = (
     ("US–Iran", "US Iran"),
@@ -82,7 +82,7 @@ def load_local_env() -> None:
 
 
 def _tz():
-    for key in (TZ_NAME, "America/Denver", "MST7MDT", "America/Phoenix"):
+    for key in (TZ_NAME, "America/Phoenix", "MST7", "America/Denver"):
         try:
             return ZoneInfo(key)
         except Exception:

@@ -1,9 +1,10 @@
 name: "1M Portfolio — Daily morning digest"
-description: "Weekday 7 AM Mountain scan of mega-cap core, primary penny-9, and secondary-20. Appends time series, writes paper-only recommendation, includes Fed/US–Iran/gold macro brief. Never places trades."
+description: "Daily 7 AM MST scan of mega-cap core, primary penny-9, and secondary-20. Appends time series, writes paper-only recommendation, includes Fed/US–Iran/gold macro brief. Never places trades."
 workflow:
   triggers:
     - cron:
-        cron: "0 7 * * 1-5"
+        cron: "0 7 * * *"
+
   actions: []
   prompts:
     - |
@@ -27,6 +28,6 @@ gitConfig:
 
 notes: |
   Companion to .github/workflows/daily-penny9.yml (the GitHub Action is the durable runner).
-  Schedule intent: weekdays 7:00 AM America/Denver (Mountain Time). Re-import this YAML in Cursor Automations if the cloud cron does not honor Mountain TZ — Actions remains authoritative.
+  Schedule intent: every day 7:00 AM MST (America/Phoenix). Re-import this YAML in Cursor Automations if the cloud cron does not honor MST — Actions remains authoritative.
   This Cursor Automation is optional if Actions is already committing snapshots.
   Needs tzdata on the runner: uv run --python 3.12 --with tzdata --no-project python ...
