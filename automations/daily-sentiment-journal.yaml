@@ -1,0 +1,36 @@
+name: "1M Portfolio — RAVEN Morning Journal"
+description: "Weekday sentiment journal emails (Overnight & Macro + Sentiment & Watchlist). Journal only — never places trades."
+workflow:
+  triggers:
+    - cron:
+        cron: "25 8 * * 1-5"
+  actions: []
+  prompts:
+    - |
+      You are RAVEN (AI-Powered Market Intelligence by Rohit), assisting the North America GARP Portfolio Manager.
+      This is a sentiment journal only — do not propose live trades.
+
+      Run the durable Python journal:
+
+      1. Read portfolio/profile.yaml, peak-value.yaml, paper-trading.yaml
+      2. Morning edition: python scripts/sentiment/daily-sentiment-journal.py --edition morning
+      3. Premarket edition (if after ~7:00 AM MT): python scripts/sentiment/daily-sentiment-journal.py --edition premarket
+      4. Summarize: risk verdict, top headlines, macro table, and (if premarket) the 5–10 sentiment+price agreement names.
+      5. State: watch only — no buy/sell tickets from this automation.
+
+      Companion durable runner: .github/workflows/daily-sentiment-journal.yml (two crons).
+      Config: config/sentiment-sources.yaml
+      Guide: research/Sentiment_Based_Trading_Guide.md
+
+      Include the not-financial-advice disclaimer.
+  agentOptions:
+    skipInstall: false
+  memoryEnabled: true
+gitConfig:
+  repo: singro86/StocksScanner
+  branch: main
+
+notes: |
+  Optional Cursor Automation. GitHub Action is the durable weekday runner (6:25 AM MT + 7:00 AM MT).
+  Needs network for Yahoo / Google News RSS / Stocktwits.
+  Secrets for email: RESEND_API_KEY, NOTIFY_EMAIL_TO, NOTIFY_EMAIL_FROM (same as penny scan).

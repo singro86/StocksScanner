@@ -72,7 +72,8 @@ Read the matching skill in `.cursor/skills/<name>/SKILL.md` **before** acting. D
 | Earnings coming, earnings watch | `earnings-watch` |
 | Execute the approved trade | `wsli-executor` |
 | Teach trading, what does X mean | `trading-fundamentals` |
-| Penny names, 3x rerate, daily scan of the 9 or the 20 | `penny-scanner` |
+| Market movers, stocks on the move, top-10 daily digest | `market-movers-scanner` |
+| Penny names, 3x rerate, secondary 20 (on-demand) | `penny-scanner` |
 | KPI reports, EDA, dashboards, CSV summaries | `data-analyst` |
 | ML, features, experiments, hypothesis tests | `data-science` |
 
@@ -89,7 +90,7 @@ Read the matching skill in `.cursor/skills/<name>/SKILL.md` **before** acting. D
 9. After the user confirms fills, update `portfolio/holdings.yaml`. Optional sync: `scripts/wsli/sync-portfolio.ps1`.
 10. Never claim $1M by Dec 2027 is likely without compound-growth math.
 11. No options, no margin, no OTC/pink sheets until the experience gate is lifted.
-12. Penny / microcap work uses `penny-scanner`. Primary universe: `portfolio/penny9-universe.yaml` (IRWD is the only 3x-rerate vehicle). Secondary: `portfolio/penny-secondary-watchlist.yaml` (20 names, all `quality: watch`, never auto-promoted). Daily job: `scripts/scoring/daily-penny9-scan.py --universe <path>`.
+12. Weekday movers email uses `market-movers-scanner` / `scripts/scoring/daily-market-movers-scan.py`. Penny / microcap work uses `penny-scanner` on demand only. Primary: `portfolio/penny9-universe.yaml` (IRWD is the only 3x-rerate vehicle). Secondary: `portfolio/penny-secondary-watchlist.yaml` (all `quality: watch`, never auto-promoted).
 13. Explain one investing term at a time for this beginner (P/E, PEG, drawdown, TFSA).
 14. End every investing session with: disclaimer, paper/drawdown status, report path if written, and one concrete next action.
 
@@ -134,11 +135,12 @@ No Cursor marketplace plugins are required. The tool stack is MCP + repo scripts
 | Equibles `GetValuationMultiples`, `GetFinancialStatement`, `GetEarningsBrief` | Research memos |
 | Rebalance-MCP `score_tickers` | Before every buy recommendation |
 | Portfolio-MCP Monte Carlo | Goal tracking |
-| `scripts/scoring/daily-penny9-scan.py` | Morning scan of penny-9 or secondary-20; Yahoo bars only |
+| `scripts/scoring/daily-market-movers-scan.py` | Weekday liquid movers → top-10 Buy/Hold/Sell email |
+| `scripts/scoring/daily-penny9-scan.py` | On-demand penny-9 / secondary-20; Yahoo bars only |
 | `scripts/wsli/sync-portfolio.ps1` | Session start / after fills |
 | `scripts/wsli/dry-run-trade.ps1` | Trade tickets |
 | `scripts/notify/send-email.ps1` | Optional email after a report |
-| `.github/workflows/daily-penny9.yml` | Weekday 8:30 America/Toronto — both universes, commit CSV + report |
-| Cursor Automations in `automations/` | Daily GARP scan, weekly pulse, monthly DCA, earnings, quarterly goals |
+| `.github/workflows/daily-market-movers.yml` | Weekday 7:00 AM Mountain Standard Time — movers CSV + report |
+| Cursor Automations in `automations/` | Daily GARP scan, movers, weekly pulse, monthly DCA, earnings, quarterly goals |
 
 Never paste API keys into workflow YAML. Resend secrets live in GitHub Actions secrets. Sender must be a verified Resend domain (or `onboarding@resend.dev` to the account owner).

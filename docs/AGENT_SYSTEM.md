@@ -16,15 +16,16 @@ AI-powered **Growth At Reasonable Price (GARP)** portfolio manager for a Canadia
 ```
 You (Wealthsimple app)
     ↑ manual execution
-Cursor Agent ← AGENTS.md + `.cursor/agents/garp-portfolio-manager.md` + mandatory rule + 13 skills
+Cursor Agent ← AGENTS.md + `.cursor/agents/garp-portfolio-manager.md` + mandatory rule + skills
     ↑ hooks (safety gates, context, audit)
 MCP: FinanceKit | Equibles | Rebalance-MCP* | Portfolio-MCP*
     ↑
 portfolio/ (profile, holdings, watchlist, penny9, penny-secondary, peak-value, paper-trading)
 research/reports/ + research/timeseries/
 automations/ (scheduled workflows — import in Cursor Automations)
-.github/workflows/daily-penny9.yml (weekday penny scans)
-scripts/ (notify, scoring/daily-penny9-scan.py, wsli* optional legacy)
+.github/workflows/daily-market-movers.yml (weekday liquid movers email)
+.github/workflows/daily-sentiment-journal.yml (RAVEN morning sentiment emails)
+scripts/ (notify, scoring/daily-market-movers-scan.py, daily-penny9-scan.py on-demand, sentiment/, wsli* optional)
 
 * Rebalance-MCP / Portfolio-MCP — use when online; FinanceKit + Equibles as fallback
 ```
@@ -96,7 +97,8 @@ Location: [`.cursor/skills/`](../.cursor/skills/)
 | `dca-planner` | $X this month | GARP-ranked DCA split |
 | `goal-tracker` | On track for $1M? | Monte Carlo + honest milestones |
 | `earnings-watch` | Earnings season | Calendar + pre-earnings checklist |
-| `penny-scanner` | Pennies, 3x, daily scan, secondary 20 | Scan penny-9 + secondary-20; IRWD only 3x vehicle |
+| `market-movers-scanner` | Market movers, top-10 daily digest | Yahoo movers → Buy/Hold/Sell email |
+| `penny-scanner` | Pennies, 3x, secondary 20 (on-demand) | Scan penny-9 + secondary-20; IRWD only 3x vehicle |
 | `data-analyst` | EDA, KPIs, dashboards, CSV summaries | Tabular reports from portfolio YAML / timeseries |
 | `data-science` | ML, features, experiments | Walk-forward models; does not override GARP 60 |
 | `wsli-executor` | Legacy semi-auto | Optional; manual mode preferred |
@@ -179,7 +181,8 @@ Import from [`automations/`](../automations/) via Cursor Automations UI:
 | Automation | Schedule (ET) | Purpose |
 |------------|---------------|---------|
 | `daily-garp-scan.yaml` | Weekdays 8:30 AM | Watchlist scoring, swap flags |
-| `daily-penny-scan.yaml` | Weekdays 8:30 AM | Both penny universes via `penny-scanner` (optional if GitHub Action runs) |
+| `daily-market-movers.yaml` | Weekdays 7:00 AM MST | Liquid movers top-10 via `market-movers-scanner` (optional if GitHub Action runs) |
+| `daily-sentiment-journal.yaml` | Weekdays 8:25 AM | RAVEN Morning Journal (optional if GitHub Action runs) |
 | `weekly-portfolio-pulse.yaml` | Monday 8:00 AM | Full portfolio review |
 | `monthly-dca-review.yaml` | 1st of month 9:00 AM | DCA allocation |
 | `earnings-alert.yaml` | Weekdays 7:00 AM | Earnings calendar |
@@ -187,13 +190,17 @@ Import from [`automations/`](../automations/) via Cursor Automations UI:
 
 ### GitHub Action
 
-[`.github/workflows/daily-penny9.yml`](../.github/workflows/daily-penny9.yml) is the durable weekday runner for both penny lists. Secrets: `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`. Never paste keys into the workflow file.
+[`.github/workflows/daily-market-movers.yml`](../.github/workflows/daily-market-movers.yml) is the durable weekday runner for liquid market movers (top-10 Buy/Hold/Sell email) at 7:00 AM Mountain Standard Time (`America/Phoenix`). Secrets: `RESEND_API_KEY`, `NOTIFY_EMAIL_TO`, `NOTIFY_EMAIL_FROM`. Never paste keys into the workflow file. Config: [`config/market-movers.yaml`](../config/market-movers.yaml).
+
+[`.github/workflows/daily-sentiment-journal.yml`](../.github/workflows/daily-sentiment-journal.yml) sends two RAVEN Morning Journal emails on weekdays (Overnight & Macro ~6:25 AM MT; Sentiment & Watchlist ~7:00 AM MT). Same Resend secrets. Journal only — never places trades. Config: [`config/sentiment-sources.yaml`](../config/sentiment-sources.yaml).
 
 ### Scripts
 
 | Path | Purpose |
 |------|---------|
-| `scripts/scoring/daily-penny9-scan.py` | Yahoo bars → CSV + report for any universe YAML |
+| `scripts/scoring/daily-market-movers-scan.py` | Yahoo screeners → CSV + top-10 email |
+| `scripts/scoring/daily-penny9-scan.py` | On-demand Yahoo bars → CSV + report for penny universe YAML |
+| `scripts/sentiment/daily-sentiment-journal.py` | RAVEN Morning Journal (macro + sentiment email; `--edition morning\|premarket`) |
 | `scripts/notify/send-email.ps1` | Resend email alerts |
 | `scripts/notify/drawdown-alert.ps1` | Drawdown email |
 | `scripts/scoring/daily-garp-scan.ps1` | Scan report template |
@@ -204,9 +211,11 @@ Import from [`automations/`](../automations/) via Cursor Automations UI:
 | Path | Purpose |
 |------|---------|
 | `portfolio/` | Source of truth for profile, holdings, penny universes |
-| `research/reports/` | Agent output (memos, tickets, daily scans, learning) |
-| `research/timeseries/` | `penny9.csv` and `penny-secondary.csv` |
+| `research/reports/` | Agent output (memos, tickets, daily scans, sentiment journal, learning) |
+| `research/timeseries/` | `market-movers.csv`, `penny9.csv`, `penny-secondary.csv`, `sentiment-daily.csv` |
 | `portfolio/cache/` | MCP audit cache + email outbox (hooks) |
+| `config/sentiment-sources.yaml` | RSS feeds, macro tickers, score weights for RAVEN journal |
+| `config/market-movers.yaml` | Movers screener thresholds |
 
 No Cursor marketplace plugins are required. The stack is MCP + repo scripts + GitHub Actions.
 
@@ -217,7 +226,7 @@ No Cursor marketplace plugins are required. The stack is MCP + repo scripts + Gi
 1. Read `portfolio/profile.yaml`, `holdings.yaml`, `peak-value.yaml`, `paper-trading.yaml`
 2. Announce paper trading status if active
 3. Use MCP for any market data (FinanceKit minimum)
-4. Select and follow the matching **skill** (`penny-scanner` for sub-$5 / 3x / daily scan)
+4. Select and follow the matching **skill** (`market-movers-scanner` for daily movers; `penny-scanner` for sub-$5 / 3x on demand)
 5. Obey all **rules** (especially trade-safety + garp-scoring)
 6. Output trade tickets in standard format; save reports to `research/reports/`
 7. Secondary pennies stay `quality: watch` until GARP >= 60 and an earnings-quality review

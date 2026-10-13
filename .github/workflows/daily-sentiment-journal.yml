@@ -1,0 +1,67 @@
+name: Daily RAVEN sentiment journal
+
+on:
+  schedule:
+    # 6:25 AM Mountain — Overnight & Macro edition
+    - cron: "25 6 * * 1-5"
+      timezone: America/Edmonton
+    # 7:00 AM Mountain — Sentiment & Watchlist edition
+    - cron: "0 7 * * 1-5"
+      timezone: America/Edmonton
+  workflow_dispatch:
+    inputs:
+      edition:
+        description: "morning (Overnight & Macro) or premarket (Sentiment & Watchlist)"
+        required: true
+        default: morning
+        type: choice
+        options:
+          - morning
+          - premarket
+
+permissions:
+  contents: write
+
+jobs:
+  journal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Resolve edition
+        id: ed
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "edition=${{ inputs.edition }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "25 6 * * 1-5" ]; then
+            echo "edition=morning" >> "$GITHUB_OUTPUT"
+          else
+            echo "edition=premarket" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run RAVEN Morning Journal
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          NOTIFY_EMAIL_FROM: ${{ secrets.NOTIFY_EMAIL_FROM }}
+          TZ: America/Edmonton
+        run: |
+          python scripts/sentiment/daily-sentiment-journal.py --edition "${{ steps.ed.outputs.edition }}"
+
+      - name: Commit journal snapshot
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/timeseries/sentiment-daily.csv research/reports/*-sentiment-journal.md
+          if git diff --cached --quiet; then
+            echo "No snapshot changes"
+          else
+            git commit -m "chore: RAVEN sentiment journal (${{ steps.ed.outputs.edition }})"
+            git push
+          fi

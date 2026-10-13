@@ -1,0 +1,53 @@
+# Weekday market-movers scanner thresholds
+# Used by scripts/scoring/daily-market-movers-scan.py
+
+slug: market-movers
+report_title: "Market movers scan"
+
+screeners:
+  - day_gainers
+  - day_losers
+  - most_actives
+
+# How many quotes to pull per screener before filtering
+screener_count: 25
+
+# Candidate pool size before ranking to top_n
+max_candidates: 50
+
+# Email / report table size
+top_n: 10
+
+filters:
+  min_price: 5.0
+  min_avg_volume: 1000000
+  min_rel_volume: 1.5
+  # Drop if exchange string contains any of these (case-insensitive)
+  exclude_exchange_substrings:
+    - OTC
+    - PINK
+    - GREY
+    - PNKS
+  # Drop tickers matching these suffixes / patterns
+  exclude_ticker_suffixes:
+    - ".W"
+    - ".WS"
+    - "-WT"
+    - "-W"
+
+classify:
+  max_buys: 2
+  min_pct_1d_buy: 3.0
+  max_rsi_buy: 75
+  min_rel_volume_buy: 1.5
+  # Sell only for held names below SMA20 with this 1d drop and volume
+  min_pct_1d_sell: -3.0
+  min_rel_volume_sell: 1.5
+  stretched_above_sma20_pct: 25
+
+overlay:
+  include_holdings: true
+  include_watchlist: true
+  # Watchlist sleeves to skip (benchmark ETF only)
+  skip_sleeves:
+    - benchmark

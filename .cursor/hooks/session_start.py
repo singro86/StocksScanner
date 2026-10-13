@@ -41,7 +41,8 @@ lines.extend(
         "- Agent spec: `.cursor/agents/garp-portfolio-manager.md` + `docs/AGENT_SYSTEM.md`",
         "- Rule: `.cursor/rules/agent-mandatory-workflow.mdc` — use skills + MCP; never guess prices",
         "- MCP: Rebalance-MCP (GARP) · FinanceKit (quotes) · Equibles (SEC/screener) · Portfolio-MCP (quant)",
-        "- Penny: `penny-scanner` skill · `portfolio/penny9-universe.yaml` · `portfolio/penny-secondary-watchlist.yaml`",
+        "- Movers: `market-movers-scanner` · `scripts/scoring/daily-market-movers-scan.py` (weekday email)",
+        "- Penny (on-demand): `penny-scanner` · `portfolio/penny9-universe.yaml` · secondary watchlist",
         "- Secondary pennies are quality: watch — never auto-buy. No live wsli during paper trading.",
     ]
 )

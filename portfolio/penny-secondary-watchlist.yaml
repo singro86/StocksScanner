@@ -1,5 +1,5 @@
 # Secondary penny watchlist - 20 names (Equibles screen + FinanceKit quotes, 2026-08-14)
-# Tier 2 behind portfolio/penny9-universe.yaml. Scanned daily by:
+# Tier 2 behind portfolio/penny9-universe.yaml. On-demand only (weekday job retired):
 #   python scripts/scoring/daily-penny9-scan.py --universe portfolio/penny-secondary-watchlist.yaml
 #
 # Selection rule: US major-exchange listing, last price under 5.00 USD,

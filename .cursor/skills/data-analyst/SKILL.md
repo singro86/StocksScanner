@@ -22,7 +22,8 @@ User says data analysis, EDA, dashboard, KPI, trend, concentration, “summarize
 | Holdings, weights | `portfolio/holdings.yaml` |
 | Profile / constraints | `portfolio/profile.yaml` |
 | Watchlist scores | `portfolio/watchlist.yaml` |
-| Penny-9 / secondary scans | `research/timeseries/penny9.csv`, `penny-secondary.csv` |
+| Market movers | `research/timeseries/market-movers.csv` |
+| Penny-9 / secondary scans (on-demand) | `research/timeseries/penny9.csv`, `penny-secondary.csv` |
 | Memos | `research/reports/` |
 
 Prefer pandas (or PowerShell + Python) over guessing. CAD for portfolio totals.

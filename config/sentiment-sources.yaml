@@ -1,0 +1,118 @@
+# RAVEN — AI-Powered Market Intelligence by Rohit
+# Used by scripts/sentiment/daily-sentiment-journal.py
+# Sentiment journal only — never places trades.
+
+brand: "RAVEN Morning Journal"
+brand_full: "RAVEN — AI-Powered Market Intelligence by Rohit"
+brand_tag: "RAVEN"
+
+# Edition schedules (documented; GitHub Actions cron is source of truth)
+editions:
+  morning:
+    label: "Overnight & Macro"
+    local_hint: "6:25 AM America/Edmonton (MT) / 8:25 AM ET"
+  premarket:
+    label: "Sentiment & Watchlist"
+    local_hint: "7:00 AM America/Edmonton (MT) / 9:00 AM ET"
+
+macro_tickers:
+  - symbol: ES=F
+    label: "S&P 500 futures"
+    role: equity
+  - symbol: NQ=F
+    label: "Nasdaq futures"
+    role: equity
+  - symbol: ^VIX
+    label: VIX
+    role: fear
+  - symbol: ^VIX3M
+    label: "VIX 3-month"
+    role: vix_term
+  - symbol: ^TNX
+    label: "US 10Y yield"
+    role: rates
+  - symbol: DX-Y.NYB
+    label: "US Dollar Index"
+    role: usd
+  - symbol: HYG
+    label: "High-yield credit (HYG)"
+    role: credit
+  - symbol: BTC-USD
+    label: "Bitcoin (risk appetite)"
+    role: crypto
+  - symbol: CL=F
+    label: "WTI crude"
+    role: oil
+  - symbol: GC=F
+    label: Gold
+    role: safe_haven
+  - symbol: USDCAD=X
+    label: USDCAD
+    role: fx
+  - symbol: ^N225
+    label: "Nikkei 225"
+    role: global
+  - symbol: ^HSI
+    label: "Hang Seng"
+    role: global
+  - symbol: ^GDAXI
+    label: "DAX (Germany)"
+    role: global
+
+# CNN Fear & Greed (display + risk score input; soft-fails if blocked)
+fear_greed_url: "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+
+# Market-wide options positioning gauge (put/call volume from Yahoo chains)
+market_option_gauges:
+  - SPY
+  - QQQ
+
+# Google News RSS (Reuters has no public RSS — scoped search is the substitute)
+rss_feeds:
+  - name: Reuters markets
+    url: "https://news.google.com/rss/search?q=when:1d+market+OR+stocks+site:reuters.com&hl=en-US&gl=US&ceid=US:en"
+  - name: CNBC markets
+    url: "https://news.google.com/rss/search?q=when:1d+stocks+OR+markets+site:cnbc.com&hl=en-US&gl=US&ceid=US:en"
+  - name: MarketWatch
+    url: "https://news.google.com/rss/search?q=when:1d+stocks+OR+markets+site:marketwatch.com&hl=en-US&gl=US&ceid=US:en"
+  - name: Morning briefing
+    url: "https://news.google.com/rss/search?q=when:1d+Wall+Street+OR+premarket+OR+%22stock+market%22&hl=en-US&gl=US&ceid=US:en"
+
+headline_limit: 8
+
+# Retail attention — Stocktwits + Google News (Reddit.com scoped) + Yahoo US trending.
+# Direct Reddit JSON is skipped (often 403 from cloud/datacenter IPs).
+retail_rss:
+  - name: WSB via Google News
+    url: "https://news.google.com/rss/search?q=when:1d+site:reddit.com/r/wallstreetbets&hl=en-US&gl=US&ceid=US:en"
+  - name: r/stocks via Google News
+    url: "https://news.google.com/rss/search?q=when:1d+site:reddit.com/r/stocks&hl=en-US&gl=US&ceid=US:en"
+
+stocktwits:
+  trending_url: "https://api.stocktwits.com/api/2/trending/symbols.json"
+  stream_url: "https://api.stocktwits.com/api/2/streams/symbol/{symbol}.json"
+
+yahoo_trending_url: "https://query1.finance.yahoo.com/v1/finance/trending/US?count=20"
+
+# Guide Section 11 weights (research framework — not a proven model)
+score_weights:
+  news_catalyst: 2
+  analyst_revisions: 2
+  options_flow: 1
+  social_sentiment: 1
+  price_volume: 2
+
+score_bands:
+  strong: [8, 11]
+  watch: [5, 7]
+  weak: [3, 4]
+  avoid: [0, 2]
+
+# Agreement list size
+agreement_top_n: 10
+agreement_min_score: 5
+
+# Risk-on / risk-off heuristic thresholds
+risk_verdict:
+  vix_elevated: 20
+  vix_calm: 15

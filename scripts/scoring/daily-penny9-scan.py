@@ -440,7 +440,7 @@ def rank_key(row: dict) -> tuple:
     return (rec_rank, buy_primary, five_sort, row["ticker"])
 
 
-EMAIL_TOP_N = 10
+EMAIL_TOP_N = 5
 ACTION_RECS = {"Buy (paper)", "Buy", "Sell"}
 
 
@@ -582,7 +582,7 @@ def build_report(
 
 **{gate_note}**
 
-{mega_block}## What to buy today (from {len(rows)} names)
+{macro_block}{mega_block}## What to buy today (from {len(rows)} names)
 
 {today_line}
 
@@ -592,7 +592,7 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 
 Prices: Yahoo Finance daily bars, {day} {TZ_NAME}. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
-{macro_block}{err_block}
+{err_block}
 ## Rules
 
 - Ranked Buy → Sell → Hold → Watch → Avoid. Max one Buy (paper) per morning.
@@ -677,7 +677,10 @@ def build_digest_html(
             f"({signed(b['pct_1d'])}% today). Not a live Wealthsimple order."
         )
     else:
-        headline = "No buy today. Top 10 below are ranked Sell first, then Hold/Watch. Watch stays research-only until GARP ≥ 60."
+        headline = (
+            f"No buy today. Top {EMAIL_TOP_N} below are ranked Sell first, then Hold/Watch. "
+            "Watch stays research-only until GARP ≥ 60."
+        )
 
     cards = [
         ("Buy", buy_n, "#05603a", "#ecfdf3"),
@@ -732,10 +735,11 @@ def build_digest_html(
           <div style="font-size:24px;font-weight:800;margin-top:6px;">Morning digest</div>
           <div style="font-size:14px;color:#d0d5dd;margin-top:4px;">{html.escape(day)} · {TZ_NAME} · Yahoo daily bars</div>
         </td></tr>
+        {macro_html}
         {mega_html}
         <tr><td style="padding:20px 28px 8px 28px;">
           <div style="font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#667085;font-weight:700;margin-bottom:4px;">Penny sleeve</div>
-          <div style="font-size:18px;font-weight:800;margin:0 0 10px 0;color:#101828;">Top 10 penny picks</div>
+          <div style="font-size:18px;font-weight:800;margin:0 0 10px 0;color:#101828;">Top {EMAIL_TOP_N} penny picks</div>
           <p style="margin:0 0 12px 0;font-size:15px;line-height:1.5;">{html.escape(headline)}</p>
           <p style="margin:0 0 16px 0;font-size:13px;color:#667085;">{html.escape(gate_note)}</p>
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>{card_html}</tr></table>
@@ -754,7 +758,6 @@ def build_digest_html(
             {''.join(body_rows)}
           </table>
         </td></tr>
-        {macro_html}
         <tr><td style="padding:0 28px 24px 28px;font-size:12px;color:#667085;line-height:1.55;">
           {err_html}
           <p style="margin:0 0 8px 0;">Penny table shows the top {len(picks)} of {len(rows)} names, ranked Buy → Sell → Hold → Watch → Avoid so Buy/Sell sit first. Mega-caps stay pinned above and never take the paper Buy slot. SMA20 and RSI stay in the saved markdown report. Official GARP scores are not computed here — live tickets still need GARP ≥ 60.</p>

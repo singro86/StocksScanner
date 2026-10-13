@@ -1,0 +1,32 @@
+name: "1M Portfolio — Daily market movers"
+description: "Weekday scan of Yahoo day gainers/losers/most actives. Filters liquid names, overlays holdings + watchlist, emails top-10 Buy/Hold/Sell digest. Never places trades."
+workflow:
+  triggers:
+    - cron:
+        cron: "0 7 * * 1-5"
+  actions: []
+  prompts:
+    - |
+      You are the North America GARP Portfolio Manager (see AGENTS.md and .cursor/agents/garp-portfolio-manager.md).
+      Read the market-movers-scanner skill, then run the weekday movers job. Do not use Equibles for this price check.
+
+      1. Read portfolio/profile.yaml and portfolio/peak-value.yaml
+      2. Run: python scripts/scoring/daily-market-movers-scan.py
+      3. Summarize the top 10 ranked table: Buy / Sell / Hold / Watch / Avoid. Buy is paper-only during paper trading.
+      4. If paper trading active, say so. This job never calls wsli and never sets TRADE_APPROVED.
+      5. Remind: official GARP ≥ 60 is still required before any live ticket.
+
+      Include the not-financial-advice disclaimer.
+  agentOptions:
+    skipInstall: false
+  memoryEnabled: true
+gitConfig:
+  repo: singro86/StocksScanner
+  branch: main
+
+notes: |
+  Companion to .github/workflows/daily-market-movers.yml (the GitHub Action is the durable runner).
+  Schedule: weekdays 7:00 AM Mountain Standard Time (America/Phoenix, UTC-7, no daylight saving).
+  This Cursor Automation is optional if Actions is already committing snapshots.
+  Needs tzdata on the runner: uv run --python 3.12 --with tzdata --no-project python ...
+  Penny universes remain on disk for on-demand scans only (scripts/scoring/daily-penny9-scan.py).

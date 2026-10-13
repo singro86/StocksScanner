@@ -1,5 +1,5 @@
 # 9-name GARP penny screen universe (Equibles 2026-08-14)
-# Daily job: scripts/scoring/daily-penny9-scan.py
+# On-demand only (weekday job retired): scripts/scoring/daily-penny9-scan.py
 # quality: pass = may become PAPER_CANDIDATE; watch = never auto-buy; avoid = reject
 
 slug: penny9

@@ -13,15 +13,15 @@ Three sleeves, one script. Never mix penny names into `watchlist.yaml` core slot
 | Primary (9) | `portfolio/penny9-universe.yaml` | mix of pass / watch / avoid | `research/timeseries/penny9.csv`, `research/reports/YYYY-MM-DD-penny9-scan.md` |
 | Secondary (20) | `portfolio/penny-secondary-watchlist.yaml` | all `watch` | `research/timeseries/penny-secondary.csv`, `research/reports/YYYY-MM-DD-penny-secondary-scan.md` |
 
-## Daily scan
+## Manual scan
 
 ```powershell
 uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py --digest
 ```
 
-That writes mega-cap + both penny time series and briefs, a Markets & macro block (gold `GC=F`, Fed, US–Iran via Yahoo + Google News RSS), plus one ranked HTML email. Mega-caps are pinned at the top of the email; penny names are ranked `Buy / Sell / Hold / Watch / Avoid`. The GitHub Action `.github/workflows/daily-penny9.yml` runs this **every day at 7:00 America/Phoenix (MST)**. This job never calls `wsli` and never sets `TRADE_APPROVED`.
+That writes mega-cap + both penny time series and briefs, a Markets & macro block (gold `GC=F`, Fed, US–Iran via Yahoo + Google News RSS), plus one ranked HTML email. The email leads with Markets & macro, then mega-caps, then the top 5 penny names ranked `Buy / Sell / Hold / Watch / Avoid`. The GitHub Action `.github/workflows/daily-penny9.yml` runs this **every day at 7:00 America/Phoenix (MST)**. This job never calls `wsli` and never sets `TRADE_APPROVED`.
 
-## Quality flags (enforced in `decide()`)
+## Quality flags (enforced in `classify()`)
 
 - `pass` — may become `PAPER_CANDIDATE` if not stretched (close > 1.25× SMA20), not RSI >= 75, and not already near `three_x_usd`
 - `watch` — never auto-promoted. Secondary list is entirely `watch`
@@ -49,4 +49,4 @@ Only IRWD has a documented 3–12 month ~3x path (old $10–$14 range / peer P/E
 - Paper trading: recommendations are `PAPER_CANDIDATE` at most
 - No live Wealthsimple order from this skill
 - If Rebalance-MCP is down, do not upgrade `watch` → `pass`
-- Reserve Equibles quota; the daily job uses Yahoo bars on purpose
+- Reserve Equibles quota; the scan uses Yahoo bars on purpose

@@ -45,7 +45,8 @@ Read and follow the matching skill in `.cursor/skills/` before acting:
 | Monthly contribution | `dca-planner` |
 | $1M progress | `goal-tracker` |
 | Earnings | `earnings-watch` |
-| Pennies, 3x rerate, daily scan, secondary 20 | `penny-scanner` |
+| Market movers / stocks on the move / top-10 digest | `market-movers-scanner` |
+| Pennies, 3x rerate, secondary 20 (on-demand) | `penny-scanner` |
 | Learn trading | `trading-fundamentals` |
 | KPI / EDA / dashboards | `data-analyst` |
 | ML / experiments / features | `data-science` |
@@ -70,7 +71,7 @@ Save memos to `research/reports/YYYY-MM-DD-{topic}.md`. After user confirms fill
 
 Hooks in `.cursor/hooks.json` enforce safety automatically. Do not circumvent drawdown, paper trading, rate limits, or secret blocking. A hook deny is final.
 
-Penny universes: `portfolio/penny9-universe.yaml` (primary) and `portfolio/penny-secondary-watchlist.yaml` (20 names, all `watch` — never auto-buy). Daily scan: `scripts/scoring/daily-penny9-scan.py`. If Rebalance-MCP is down, do not promote a name to Buy.
+Penny universes: `portfolio/penny9-universe.yaml` (primary) and `portfolio/penny-secondary-watchlist.yaml` (20 names, all `watch` — never auto-buy). On-demand only: `scripts/scoring/daily-penny9-scan.py`. Weekday email job: `scripts/scoring/daily-market-movers-scan.py`. If Rebalance-MCP is down, do not promote a name to Buy.
 
 ## 7. End every session
 

@@ -39,15 +39,15 @@ $env:TRADE_APPROVED = "true"
 # Daily scan template (full GARP watchlist — agent completes MCP scoring)
 .\scripts\scoring\daily-garp-scan.ps1 -SendEmail
 
-# 9-name penny screen (Yahoo bars, time series, paper recommendation)
-# Windows: uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-penny9-scan.py
-python .\scripts\scoring\daily-penny9-scan.py
+# Weekday market movers (Yahoo gainers/losers/actives → top-10 Buy/Hold/Sell email)
+# Windows: uv run --python 3.12 --with tzdata --no-project python .\scripts\scoring\daily-market-movers-scan.py
+python .\scripts\scoring\daily-market-movers-scan.py
 
-# 20-name secondary penny watchlist (watch-only tier, same scanner)
-python .\scripts\scoring\daily-penny9-scan.py --universe portfolio\penny-secondary-watchlist.yaml
+# On-demand penny universes (not scheduled)
+python .\scripts\scoring\daily-penny9-scan.py --digest
 ```
 
-Each universe writes its own `research/timeseries/<slug>.csv` and `research/reports/<date>-<slug>-scan.md`, keyed off the `slug` in the universe YAML.
+Movers write `research/timeseries/market-movers.csv` and `research/reports/<date>-market-movers-scan.md`. Penny scans (manual) still use per-universe `slug` outputs.
 
 ## Paper trading graduation
 

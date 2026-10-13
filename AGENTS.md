@@ -98,7 +98,7 @@ Full routing: `.cursor/agents/garp-portfolio-manager.md`. Always-on rule: `.curs
 
 
 
-`portfolio-onboarding`, `garp-scorer`, `bull-bear-debate`, `rotation-analyzer`, `stock-research`, `portfolio-review`, `trade-proposal`, `dca-planner`, `goal-tracker`, `earnings-watch`, `trading-fundamentals`, `penny-scanner`, `data-analyst`, `data-science`, `wsli-executor` (legacy optional)
+`portfolio-onboarding`, `garp-scorer`, `bull-bear-debate`, `rotation-analyzer`, `stock-research`, `portfolio-review`, `trade-proposal`, `dca-planner`, `goal-tracker`, `earnings-watch`, `trading-fundamentals`, `market-movers-scanner`, `penny-scanner`, `data-analyst`, `data-science`, `wsli-executor` (legacy optional)
 
 
 

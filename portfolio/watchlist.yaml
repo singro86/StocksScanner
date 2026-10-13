@@ -52,9 +52,10 @@ core:
     - ticker: UBER
       garp_score: null
       sleeve: mid_cap_garp
-    - ticker: SQ
+    - ticker: XYZ
       garp_score: null
       sleeve: mid_cap_garp
+      note: "Formerly SQ (Block, Inc.)"
 
   etf_reference:
     - ticker: QQQ
