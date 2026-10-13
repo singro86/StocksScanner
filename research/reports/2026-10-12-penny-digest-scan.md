@@ -55,11 +55,11 @@ Prices: Yahoo Finance daily bars, 2026-10-12 America/Phoenix. SMA20 and RSI14 fr
 
 ## Markets & macro
 
-**Gold (GC=F):** $4205.50 (+0.36% 1d) — Yahoo Finance, 2026-10-13.
+**Gold (GC=F):** $4203.10 (+0.30% 1d) — Yahoo Finance, 2026-10-13.
 
 ### US–Iran
 - [Trump denounces Houthi attacks after Saudi crown prince call as coalition intercepts missiles - Fox News](https://news.google.com/rss/articles/CBMikgFBVV95cUxQd1NucG1sLWY2cnNHT1FDczhGakVYQUtfaVdRYkEtQkxpYnVpMERXa1oxMHRpckRsbXp6UHVnU1NwelFxa3JPaDZjLVZ2blpJTENlQU9ZdGFwak9WS0k0dDhONVdwODZTQm9vdGJxRXNnTUdraWRSZUxaUGhCVTZNU3M5LTNZaExxUUh1c3ZZTFQ2UQ?oc=5)
-- [Iran war updates: Saudi downs Houthi missiles during ongoing deadly attacks - Al Jazeera](https://news.google.com/rss/articles/CBMivgFBVV95cUxOTGtkLXd1c0tZZlVxNER3Tmc4V1RodWo0UE5Xc3pWSjU3bkJRdDJFRVpmLXprUnlDTUYtQnk4U281TFNqQk5USWdkalJscDhGZzdJZ0tWaTV5MHZNQ2hFcE16VlNpdGN1SUtpb21felQ4cTdfcnM3MnJEbFdRWm5ubG5UbzNYVDdUSjFzZ1FrWS15U1lDNXlEZF9iX3l5MHczX2VVRS1pQVhRcEE1OS00Z1dXaDRVMldrcGQ5MTd30gHDAUFVX3lxTE84MkxvSFZFMjJnblFxWGZoLVAzRkxXUVZSLUQyWG1RR3BJMk8zTVJzQ2dHVVRrNHA3Z1BlRkg3bHU0aXBqZ1FaNW80ZXdmY3Z1UkN0SXpXcWI4eGZxOEl1dE5sNlNBcV9mTzJ1VXJ4TmJZVU5ON0llVTBRWXdRYzAwV2N0UHRkMVB5ZzVGREhZUVVOWEloaEIzTEUwUDlIanFla1pLczdxem5SUmJGTllEVERNWTJJNS1wR1pFSWRyNnNPWQ?oc=5)
+- [Iran sets crosshairs on ‘US-UAE’ oil shuttle out of Strait of Hormuz - Al Jazeera](https://news.google.com/rss/articles/CBMisAFBVV95cUxObWp5UElEV2piTFkzc3NRUTR4NDJfM0trT2wybWw5U2pkeGdpdlg2NHVCN1lCZWN3MGIwX3F3OWtDc1lwOG1LQmhENVVPT0s1T1FGZjNwNDczSE9WczU4SkN3QlVVRTlpOFcwTGp0ZFU4ZjRLcG5HRm1tOTdjUUMyOXZDLUlFMUgzZlhzTlp1LXN2dDhycE1lS1pGYXNlaTMtLTNiOFZwcFR3ZkNwaVJEUdIBtgFBVV95cUxNLU5pTjR5VVVpNEZJYjRfVVRuZ1lTZ0Y5OWd5LXFocDdJc1YyNFc4T1ZWMVRhTWxIUXhxNG5qQUtoeWdqdWtxM2J6SGhIQkVDMk1iZ0o5U2tCZmZRcC1tRDNkRUFBcUxFRGRfWlVPTU9jVjJjQ2RDNDNrRWpvbjREYklOVnEtZlpFdlhkUjZHeVlFWmpSWnNNd1NYRXZ4NUg0bDJVN2NFeU5RTGFNLTRvT1BHV3Brdw?oc=5)
 
 ### Federal Reserve
 - [Fed minutes: Another rate hike likely coming this year to combat persistent inflation - 6abc Philadelphia](https://news.google.com/rss/articles/CBMipAFBVV95cUxNMGVtNmFTbkJWTU1mRVhTdWlzMm5JbFl3ZTVHd21IVEJsV3BJdDFSQ1AxcnRaZ295MnhhZ0pleU1HUVV5WlluaE5BWlQ3TmM1YWhRZFJmMmxsZ2xJS0VUQ096cDF5Ym5CaHJSOS1icThaZDNyT01IRWYtTlhVeXJCRHNJUV9zeWgxN2l1MHhQa0dudXhnYi1WOER5VnFUWFRlbDNXNQ?oc=5)
