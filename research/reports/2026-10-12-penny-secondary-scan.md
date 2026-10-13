@@ -33,7 +33,7 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 | 19 | AREC | Secondary 20 | Watch | 1.50 | -5.66 | -13.79 | 1.82 | 7.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 20 | UWMC | Secondary 20 | Watch | 1.02 | -5.56 | -20.93 | 1.21 | 26.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 
-Prices: Yahoo Finance daily bars, 2026-10-12 America/Denver. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
+Prices: Yahoo Finance daily bars, 2026-10-12 America/Phoenix. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
 
 ## Rules

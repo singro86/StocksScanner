@@ -17,7 +17,7 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 | 3 | GOOGL | Mega-cap | Watch | 352.72 | +0.30 | +1.80 | 346.09 | 51.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 4 | NVDA | Mega-cap | Watch | 226.32 | -1.29 | -5.27 | 227.50 | 46.4 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 
-Prices: Yahoo Finance daily bars, 2026-10-12 America/Denver. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
+Prices: Yahoo Finance daily bars, 2026-10-12 America/Phoenix. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
 
 ## Rules

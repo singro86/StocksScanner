@@ -51,11 +51,11 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 | 28 | ANNA | Primary 9 | Avoid | 2.54 | -1.17 | -5.58 | 2.78 | 31.5 | Earnings-quality fail or not GARP. Do not buy the bounce. |
 | 29 | NNBR | Primary 9 | Avoid | 3.94 | -0.25 | -7.08 | 3.73 | 60.4 | Earnings-quality fail or not GARP. Do not buy the bounce. |
 
-Prices: Yahoo Finance daily bars, 2026-10-12 America/Denver. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
+Prices: Yahoo Finance daily bars, 2026-10-12 America/Phoenix. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
 ## Markets & macro
 
-**Gold (GC=F):** $4206.80 (+0.39% 1d) — Yahoo Finance, 2026-10-13.
+**Gold (GC=F):** $4205.50 (+0.36% 1d) — Yahoo Finance, 2026-10-13.
 
 ### US–Iran
 - [Trump denounces Houthi attacks after Saudi crown prince call as coalition intercepts missiles - Fox News](https://news.google.com/rss/articles/CBMikgFBVV95cUxQd1NucG1sLWY2cnNHT1FDczhGakVYQUtfaVdRYkEtQkxpYnVpMERXa1oxMHRpckRsbXp6UHVnU1NwelFxa3JPaDZjLVZ2blpJTENlQU9ZdGFwak9WS0k0dDhONVdwODZTQm9vdGJxRXNnTUdraWRSZUxaUGhCVTZNU3M5LTNZaExxUUh1c3ZZTFQ2UQ?oc=5)
@@ -69,7 +69,7 @@ Prices: Yahoo Finance daily bars, 2026-10-12 America/Denver. SMA20 and RSI14 fro
 - [Gold, silver soften as markets price in December Fed hike risk - Kitco PM Report - Kitco](https://news.google.com/rss/articles/CBMiuAFBVV95cUxOMm9vWUZmMnhWUlpnZWtuaC14TkxWb0NVX0kxcUhDOVZZaGVKV2oyaFl0Umh1RjBTdGZtbDdlQzBUSEpJRHpkcDVOYng0SGJZRm9xZVlDQnV5dkRaSURzNXB4c2tyRTVIUVdhOS1MeTZZOXNPcmlxQmE2ME5CTXNMVXFzRFFUWFFwRElRTGpQREVFbXZwSWwxd1hXcnFoSVJRaXF2bVZnWVFSejRiYzJuaFNRdXQxYWFf?oc=5)
 - [Gold Price - XAU/USD Q4 2026: Can the Support Drive a Recovery? for OANDA:XAUUSD by tohaitrieu - TradingView](https://news.google.com/rss/articles/CBMirwFBVV95cUxQTi1jUGhjRGNscFpTOGd1ZHIxcUxKVzFhQU8xT2hVT2k0T1dYSmlpcllhZW5KVlIwZE9PTC16eEwxY0pxYmFqaTc1WG9vQzZrWThKVk9HMElhV3l3VkROekIwbEZYZGp5S0NGcjZ2dWZpMXlWUkJHSHBucWtVMVNFYmRqbk9HNWgybzdPRVhvc1IxQkRpY2Y5UWpMZC1qcUQ3WC1uTjF3b0Y3d0M3YlJn?oc=5)
 
-_Headlines: Google News RSS · Gold: Yahoo Finance · as of 2026-10-12 America/Denver. Educational summary only — not investment advice._
+_Headlines: Google News RSS · Gold: Yahoo Finance · as of 2026-10-12 America/Phoenix. Educational summary only — not investment advice._
 
 ## Rules
 
