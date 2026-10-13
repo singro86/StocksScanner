@@ -572,6 +572,8 @@ def build_report(
         err_block = "\n## Fetch errors\n\n" + "\n".join(f"- {e}" for e in errors) + "\n"
 
     mega_block = _mega_markdown(mega_rows or [])
+    if mega_block and not mega_block.endswith("\n\n"):
+        mega_block = mega_block.rstrip("\n") + "\n\n"
     macro_block = format_macro_markdown(macro) if macro else ""
 
     return f"""# {meta['title']} — {day}

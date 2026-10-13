@@ -1,14 +1,23 @@
-# Penny digest (primary 9 + secondary 20) — 2026-10-12
+# Morning digest (mega-cap + primary 9 + secondary 20) — 2026-10-12
 
 > I am an AI research assistant, not a licensed financial advisor. This is educational information, not personalized financial advice. Consider a qualified advisor for your situation.
 
 **Paper trading active — dry-run only. Buy lines are paper recommendations, never live Wealthsimple orders.**
 
+## Mega-cap core
+
+| Ticker | Name | Close | 1d % | 5d % | SMA20 | RSI14 | Note |
+|--------|------|------:|-----:|-----:|------:|------:|------|
+| NVDA | NVIDIA | 226.32 | -1.29 | -5.27 | 227.50 | 46.4 | Display-only (watch) — not a paper Buy from this job. |
+| MSFT | Microsoft | 541.15 | +1.14 | +3.04 | 511.89 | 77.9 | Display-only (watch) — not a paper Buy from this job. |
+| GOOGL | Alphabet | 352.72 | +0.30 | +1.80 | 346.09 | 51.5 | Display-only (watch) — not a paper Buy from this job. |
+| AAPL | Apple | 340.97 | +1.29 | +2.43 | 335.78 | 51.3 | Display-only (watch) — not a paper Buy from this job. |
+
 ## What to buy today (from 29 names)
 
 **Buy (paper): IRWD** at $3.76 (1d -1.57%, vs SMA20 4.02). Not a live Wealthsimple order.
 
-Official Rebalance-MCP GARP scores are not computed in this job. Quality flags come from `portfolio/penny9-universe.yaml + portfolio/penny-secondary-watchlist.yaml`. A live ticket still needs GARP ≥ 60.
+Official Rebalance-MCP GARP scores are not computed in this job. Quality flags come from `portfolio/mega-cap-scan-universe.yaml + portfolio/penny9-universe.yaml + portfolio/penny-secondary-watchlist.yaml`. A live ticket still needs GARP ≥ 60.
 
 | Rank | Ticker | List | Rec | Close | 1d % | 5d % | SMA20 | RSI14 | Why |
 |-----:|--------|------|-----|------:|-----:|-----:|------:|------:|-----|
@@ -20,7 +29,7 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 | 6 | GORO | Secondary 20 | Watch | 3.43 | +0.59 | +5.54 | 3.40 | 44.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 7 | TBLA | Secondary 20 | Watch | 3.40 | -1.45 | +3.98 | 3.47 | 41.0 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 8 | GDRX | Secondary 20 | Watch | 3.48 | +1.46 | +3.57 | 3.35 | 52.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 9 | TYGO | Secondary 20 | Watch | 0.89 | -0.14 | +2.87 | 0.91 | 37.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 9 | TYGO | Secondary 20 | Watch | 0.89 | -0.11 | +2.90 | 0.91 | 37.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 10 | PLX | Primary 9 | Watch | 2.78 | +0.00 | +2.58 | 2.73 | 43.5 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 11 | AMPY | Secondary 20 | Watch | 4.51 | +1.12 | +1.81 | 4.41 | 64.3 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 12 | VRRM | Secondary 20 | Watch | 2.92 | -0.68 | +1.74 | 3.16 | 26.4 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
@@ -31,7 +40,7 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 | 17 | SABR | Secondary 20 | Watch | 1.88 | -1.05 | -2.59 | 2.10 | 18.0 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 18 | ALTO | Secondary 20 | Watch | 3.66 | -1.88 | -3.43 | 3.79 | 38.2 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 19 | VFF | Secondary 20 | Watch | 2.62 | -2.24 | -3.68 | 2.88 | 30.2 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
-| 20 | SITC | Secondary 20 | Watch | 3.08 | -0.65 | -4.94 | 3.11 | 50.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
+| 20 | SITC | Secondary 20 | Watch | 3.10 | -2.21 | -9.36 | 3.10 | 53.6 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 21 | ABUS | Secondary 20 | Watch | 4.15 | -1.66 | -11.13 | 4.71 | 23.8 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 22 | AREC | Secondary 20 | Watch | 1.50 | -5.66 | -13.79 | 1.82 | 7.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
 | 23 | UWMC | Secondary 20 | Watch | 1.02 | -5.56 | -20.93 | 1.21 | 26.9 | No official GARP ≥ 60 yet. Not auto-promoted after a crash. |
@@ -42,12 +51,30 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 | 28 | ANNA | Primary 9 | Avoid | 2.54 | -1.17 | -5.58 | 2.78 | 31.5 | Earnings-quality fail or not GARP. Do not buy the bounce. |
 | 29 | NNBR | Primary 9 | Avoid | 3.94 | -0.25 | -7.08 | 3.73 | 60.4 | Earnings-quality fail or not GARP. Do not buy the bounce. |
 
-Prices: Yahoo Finance daily bars, 2026-10-12 America/Toronto. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
+Prices: Yahoo Finance daily bars, 2026-10-12 America/Denver. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
+## Markets & macro
+
+**Gold (GC=F):** $4206.80 (+0.39% 1d) — Yahoo Finance, 2026-10-13.
+
+### US–Iran
+- [Trump denounces Houthi attacks after Saudi crown prince call as coalition intercepts missiles - Fox News](https://news.google.com/rss/articles/CBMikgFBVV95cUxQd1NucG1sLWY2cnNHT1FDczhGakVYQUtfaVdRYkEtQkxpYnVpMERXa1oxMHRpckRsbXp6UHVnU1NwelFxa3JPaDZjLVZ2blpJTENlQU9ZdGFwak9WS0k0dDhONVdwODZTQm9vdGJxRXNnTUdraWRSZUxaUGhCVTZNU3M5LTNZaExxUUh1c3ZZTFQ2UQ?oc=5)
+- [Iran war updates: Saudi downs Houthi missiles during ongoing deadly attacks - Al Jazeera](https://news.google.com/rss/articles/CBMivgFBVV95cUxOTGtkLXd1c0tZZlVxNER3Tmc4V1RodWo0UE5Xc3pWSjU3bkJRdDJFRVpmLXprUnlDTUYtQnk4U281TFNqQk5USWdkalJscDhGZzdJZ0tWaTV5MHZNQ2hFcE16VlNpdGN1SUtpb21felQ4cTdfcnM3MnJEbFdRWm5ubG5UbzNYVDdUSjFzZ1FrWS15U1lDNXlEZF9iX3l5MHczX2VVRS1pQVhRcEE1OS00Z1dXaDRVMldrcGQ5MTd30gHDAUFVX3lxTE84MkxvSFZFMjJnblFxWGZoLVAzRkxXUVZSLUQyWG1RR3BJMk8zTVJzQ2dHVVRrNHA3Z1BlRkg3bHU0aXBqZ1FaNW80ZXdmY3Z1UkN0SXpXcWI4eGZxOEl1dE5sNlNBcV9mTzJ1VXJ4TmJZVU5ON0llVTBRWXdRYzAwV2N0UHRkMVB5ZzVGREhZUVVOWEloaEIzTEUwUDlIanFla1pLczdxem5SUmJGTllEVERNWTJJNS1wR1pFSWRyNnNPWQ?oc=5)
+
+### Federal Reserve
+- [Fed minutes: Another rate hike likely coming this year to combat persistent inflation - 6abc Philadelphia](https://news.google.com/rss/articles/CBMipAFBVV95cUxNMGVtNmFTbkJWTU1mRVhTdWlzMm5JbFl3ZTVHd21IVEJsV3BJdDFSQ1AxcnRaZ295MnhhZ0pleU1HUVV5WlluaE5BWlQ3TmM1YWhRZFJmMmxsZ2xJS0VUQ096cDF5Ym5CaHJSOS1icThaZDNyT01IRWYtTlhVeXJCRHNJUV9zeWgxN2l1MHhQa0dudXhnYi1WOER5VnFUWFRlbDNXNQ?oc=5)
+- [Trump announces committee investigation of Fed Governor Lisa Cook - SCOTUSblog](https://news.google.com/rss/articles/CBMiowFBVV95cUxQSzEteVpBaXpTZ1dVcFFoejBFNDh6d1I2b0t1RzZWRTgtUTBJaGFfbWNEMS1xdEZYcUhuQkI2ZHFGSFJ6ZnFZMEVoODV3VllUQmp4Y3owMVhfcU1vR1JLN1F5Q1pvT1J2TlpoTGMzb0VUR0tpQzNnWVliUUhMM1AxM0U5UjNNb29ZaW5jZ01oZE1sQ3BFTFJQek4tZVNsYVlXVUpv?oc=5)
+
+### Gold
+- [Gold, silver soften as markets price in December Fed hike risk - Kitco PM Report - Kitco](https://news.google.com/rss/articles/CBMiuAFBVV95cUxOMm9vWUZmMnhWUlpnZWtuaC14TkxWb0NVX0kxcUhDOVZZaGVKV2oyaFl0Umh1RjBTdGZtbDdlQzBUSEpJRHpkcDVOYng0SGJZRm9xZVlDQnV5dkRaSURzNXB4c2tyRTVIUVdhOS1MeTZZOXNPcmlxQmE2ME5CTXNMVXFzRFFUWFFwRElRTGpQREVFbXZwSWwxd1hXcnFoSVJRaXF2bVZnWVFSejRiYzJuaFNRdXQxYWFf?oc=5)
+- [Gold Price - XAU/USD Q4 2026: Can the Support Drive a Recovery? for OANDA:XAUUSD by tohaitrieu - TradingView](https://news.google.com/rss/articles/CBMirwFBVV95cUxQTi1jUGhjRGNscFpTOGd1ZHIxcUxKVzFhQU8xT2hVT2k0T1dYSmlpcllhZW5KVlIwZE9PTC16eEwxY0pxYmFqaTc1WG9vQzZrWThKVk9HMElhV3l3VkROekIwbEZYZGp5S0NGcjZ2dWZpMXlWUkJHSHBucWtVMVNFYmRqbk9HNWgybzdPRVhvc1IxQkRpY2Y5UWpMZC1qcUQ3WC1uTjF3b0Y3d0M3YlJn?oc=5)
+
+_Headlines: Google News RSS · Gold: Yahoo Finance · as of 2026-10-12 America/Denver. Educational summary only — not investment advice._
 
 ## Rules
 
 - Ranked Buy → Sell → Hold → Watch → Avoid. Max one Buy (paper) per morning.
+- Mega-cap core (NVDA / MSFT / GOOGL / AAPL) is display-only in the digest top section — never the morning paper Buy.
 - `Avoid` never becomes a buy because it bounced. `Sell` only if you already hold that avoid-quality name.
 - `Watch` is not auto-promoted after a crash.
 - This job never calls wsli and never sets TRADE_APPROVED.
