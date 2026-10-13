@@ -4,6 +4,23 @@
 
 **Paper trading active — dry-run only. Buy lines are paper recommendations, never live Wealthsimple orders.**
 
+## Markets & macro
+
+**Gold (GC=F):** $4207.40 (+0.40% 1d) — Yahoo Finance, 2026-10-13.
+
+### US–Iran
+- [Trump denounces Houthi attacks after Saudi crown prince call as coalition intercepts missiles - Fox News](https://news.google.com/rss/articles/CBMikgFBVV95cUxQd1NucG1sLWY2cnNHT1FDczhGakVYQUtfaVdRYkEtQkxpYnVpMERXa1oxMHRpckRsbXp6UHVnU1NwelFxa3JPaDZjLVZ2blpJTENlQU9ZdGFwak9WS0k0dDhONVdwODZTQm9vdGJxRXNnTUdraWRSZUxaUGhCVTZNU3M5LTNZaExxUUh1c3ZZTFQ2UQ?oc=5)
+- [Iran sets crosshairs on ‘US-UAE’ oil shuttle out of Strait of Hormuz - Al Jazeera](https://news.google.com/rss/articles/CBMisAFBVV95cUxObWp5UElEV2piTFkzc3NRUTR4NDJfM0trT2wybWw5U2pkeGdpdlg2NHVCN1lCZWN3MGIwX3F3OWtDc1lwOG1LQmhENVVPT0s1T1FGZjNwNDczSE9WczU4SkN3QlVVRTlpOFcwTGp0ZFU4ZjRLcG5HRm1tOTdjUUMyOXZDLUlFMUgzZlhzTlp1LXN2dDhycE1lS1pGYXNlaTMtLTNiOFZwcFR3ZkNwaVJEUdIBtgFBVV95cUxNLU5pTjR5VVVpNEZJYjRfVVRuZ1lTZ0Y5OWd5LXFocDdJc1YyNFc4T1ZWMVRhTWxIUXhxNG5qQUtoeWdqdWtxM2J6SGhIQkVDMk1iZ0o5U2tCZmZRcC1tRDNkRUFBcUxFRGRfWlVPTU9jVjJjQ2RDNDNrRWpvbjREYklOVnEtZlpFdlhkUjZHeVlFWmpSWnNNd1NYRXZ4NUg0bDJVN2NFeU5RTGFNLTRvT1BHV3Brdw?oc=5)
+
+### Federal Reserve
+- [Fed minutes: Another rate hike likely coming this year to combat persistent inflation - 6abc Philadelphia](https://news.google.com/rss/articles/CBMipAFBVV95cUxNMGVtNmFTbkJWTU1mRVhTdWlzMm5JbFl3ZTVHd21IVEJsV3BJdDFSQ1AxcnRaZ295MnhhZ0pleU1HUVV5WlluaE5BWlQ3TmM1YWhRZFJmMmxsZ2xJS0VUQ096cDF5Ym5CaHJSOS1icThaZDNyT01IRWYtTlhVeXJCRHNJUV9zeWgxN2l1MHhQa0dudXhnYi1WOER5VnFUWFRlbDNXNQ?oc=5)
+- [Trump announces committee investigation of Fed Governor Lisa Cook - SCOTUSblog](https://news.google.com/rss/articles/CBMiowFBVV95cUxQSzEteVpBaXpTZ1dVcFFoejBFNDh6d1I2b0t1RzZWRTgtUTBJaGFfbWNEMS1xdEZYcUhuQkI2ZHFGSFJ6ZnFZMEVoODV3VllUQmp4Y3owMVhfcU1vR1JLN1F5Q1pvT1J2TlpoTGMzb0VUR0tpQzNnWVliUUhMM1AxM0U5UjNNb29ZaW5jZ01oZE1sQ3BFTFJQek4tZVNsYVlXVUpv?oc=5)
+
+### Gold
+- [Gold, silver soften as markets price in December Fed hike risk - Kitco PM Report - Kitco](https://news.google.com/rss/articles/CBMiuAFBVV95cUxOMm9vWUZmMnhWUlpnZWtuaC14TkxWb0NVX0kxcUhDOVZZaGVKV2oyaFl0Umh1RjBTdGZtbDdlQzBUSEpJRHpkcDVOYng0SGJZRm9xZVlDQnV5dkRaSURzNXB4c2tyRTVIUVdhOS1MeTZZOXNPcmlxQmE2ME5CTXNMVXFzRFFUWFFwRElRTGpQREVFbXZwSWwxd1hXcnFoSVJRaXF2bVZnWVFSejRiYzJuaFNRdXQxYWFf?oc=5)
+- [Gold Price - XAU/USD Q4 2026: Can the Support Drive a Recovery? for OANDA:XAUUSD by tohaitrieu - TradingView](https://news.google.com/rss/articles/CBMirwFBVV95cUxQTi1jUGhjRGNscFpTOGd1ZHIxcUxKVzFhQU8xT2hVT2k0T1dYSmlpcllhZW5KVlIwZE9PTC16eEwxY0pxYmFqaTc1WG9vQzZrWThKVk9HMElhV3l3VkROekIwbEZYZGp5S0NGcjZ2dWZpMXlWUkJHSHBucWtVMVNFYmRqbk9HNWgybzdPRVhvc1IxQkRpY2Y5UWpMZC1qcUQ3WC1uTjF3b0Y3d0M3YlJn?oc=5)
+
+_Headlines: Google News RSS · Gold: Yahoo Finance · as of 2026-10-12 America/Phoenix. Educational summary only — not investment advice._
 ## Mega-cap core
 
 | Ticker | Name | Close | 1d % | 5d % | SMA20 | RSI14 | Note |
@@ -53,23 +70,6 @@ Official Rebalance-MCP GARP scores are not computed in this job. Quality flags c
 
 Prices: Yahoo Finance daily bars, 2026-10-12 America/Phoenix. SMA20 and RSI14 from the last 3 months of daily closes. Do not use Equibles for this routine price check.
 
-## Markets & macro
-
-**Gold (GC=F):** $4203.10 (+0.30% 1d) — Yahoo Finance, 2026-10-13.
-
-### US–Iran
-- [Trump denounces Houthi attacks after Saudi crown prince call as coalition intercepts missiles - Fox News](https://news.google.com/rss/articles/CBMikgFBVV95cUxQd1NucG1sLWY2cnNHT1FDczhGakVYQUtfaVdRYkEtQkxpYnVpMERXa1oxMHRpckRsbXp6UHVnU1NwelFxa3JPaDZjLVZ2blpJTENlQU9ZdGFwak9WS0k0dDhONVdwODZTQm9vdGJxRXNnTUdraWRSZUxaUGhCVTZNU3M5LTNZaExxUUh1c3ZZTFQ2UQ?oc=5)
-- [Iran sets crosshairs on ‘US-UAE’ oil shuttle out of Strait of Hormuz - Al Jazeera](https://news.google.com/rss/articles/CBMisAFBVV95cUxObWp5UElEV2piTFkzc3NRUTR4NDJfM0trT2wybWw5U2pkeGdpdlg2NHVCN1lCZWN3MGIwX3F3OWtDc1lwOG1LQmhENVVPT0s1T1FGZjNwNDczSE9WczU4SkN3QlVVRTlpOFcwTGp0ZFU4ZjRLcG5HRm1tOTdjUUMyOXZDLUlFMUgzZlhzTlp1LXN2dDhycE1lS1pGYXNlaTMtLTNiOFZwcFR3ZkNwaVJEUdIBtgFBVV95cUxNLU5pTjR5VVVpNEZJYjRfVVRuZ1lTZ0Y5OWd5LXFocDdJc1YyNFc4T1ZWMVRhTWxIUXhxNG5qQUtoeWdqdWtxM2J6SGhIQkVDMk1iZ0o5U2tCZmZRcC1tRDNkRUFBcUxFRGRfWlVPTU9jVjJjQ2RDNDNrRWpvbjREYklOVnEtZlpFdlhkUjZHeVlFWmpSWnNNd1NYRXZ4NUg0bDJVN2NFeU5RTGFNLTRvT1BHV3Brdw?oc=5)
-
-### Federal Reserve
-- [Fed minutes: Another rate hike likely coming this year to combat persistent inflation - 6abc Philadelphia](https://news.google.com/rss/articles/CBMipAFBVV95cUxNMGVtNmFTbkJWTU1mRVhTdWlzMm5JbFl3ZTVHd21IVEJsV3BJdDFSQ1AxcnRaZ295MnhhZ0pleU1HUVV5WlluaE5BWlQ3TmM1YWhRZFJmMmxsZ2xJS0VUQ096cDF5Ym5CaHJSOS1icThaZDNyT01IRWYtTlhVeXJCRHNJUV9zeWgxN2l1MHhQa0dudXhnYi1WOER5VnFUWFRlbDNXNQ?oc=5)
-- [Trump announces committee investigation of Fed Governor Lisa Cook - SCOTUSblog](https://news.google.com/rss/articles/CBMiowFBVV95cUxQSzEteVpBaXpTZ1dVcFFoejBFNDh6d1I2b0t1RzZWRTgtUTBJaGFfbWNEMS1xdEZYcUhuQkI2ZHFGSFJ6ZnFZMEVoODV3VllUQmp4Y3owMVhfcU1vR1JLN1F5Q1pvT1J2TlpoTGMzb0VUR0tpQzNnWVliUUhMM1AxM0U5UjNNb29ZaW5jZ01oZE1sQ3BFTFJQek4tZVNsYVlXVUpv?oc=5)
-
-### Gold
-- [Gold, silver soften as markets price in December Fed hike risk - Kitco PM Report - Kitco](https://news.google.com/rss/articles/CBMiuAFBVV95cUxOMm9vWUZmMnhWUlpnZWtuaC14TkxWb0NVX0kxcUhDOVZZaGVKV2oyaFl0Umh1RjBTdGZtbDdlQzBUSEpJRHpkcDVOYng0SGJZRm9xZVlDQnV5dkRaSURzNXB4c2tyRTVIUVdhOS1MeTZZOXNPcmlxQmE2ME5CTXNMVXFzRFFUWFFwRElRTGpQREVFbXZwSWwxd1hXcnFoSVJRaXF2bVZnWVFSejRiYzJuaFNRdXQxYWFf?oc=5)
-- [Gold Price - XAU/USD Q4 2026: Can the Support Drive a Recovery? for OANDA:XAUUSD by tohaitrieu - TradingView](https://news.google.com/rss/articles/CBMirwFBVV95cUxQTi1jUGhjRGNscFpTOGd1ZHIxcUxKVzFhQU8xT2hVT2k0T1dYSmlpcllhZW5KVlIwZE9PTC16eEwxY0pxYmFqaTc1WG9vQzZrWThKVk9HMElhV3l3VkROekIwbEZYZGp5S0NGcjZ2dWZpMXlWUkJHSHBucWtVMVNFYmRqbk9HNWgybzdPRVhvc1IxQkRpY2Y5UWpMZC1qcUQ3WC1uTjF3b0Y3d0M3YlJn?oc=5)
-
-_Headlines: Google News RSS · Gold: Yahoo Finance · as of 2026-10-12 America/Phoenix. Educational summary only — not investment advice._
 
 ## Rules
 
