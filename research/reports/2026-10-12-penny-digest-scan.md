@@ -6,7 +6,7 @@
 
 ## Markets & macro
 
-**Gold (GC=F):** $4207.40 (+0.40% 1d) — Yahoo Finance, 2026-10-13.
+**Gold (GC=F):** $4207.90 (+0.41% 1d) — Yahoo Finance, 2026-10-13.
 
 ### US–Iran
 - [Trump denounces Houthi attacks after Saudi crown prince call as coalition intercepts missiles - Fox News](https://news.google.com/rss/articles/CBMikgFBVV95cUxQd1NucG1sLWY2cnNHT1FDczhGakVYQUtfaVdRYkEtQkxpYnVpMERXa1oxMHRpckRsbXp6UHVnU1NwelFxa3JPaDZjLVZ2blpJTENlQU9ZdGFwak9WS0k0dDhONVdwODZTQm9vdGJxRXNnTUdraWRSZUxaUGhCVTZNU3M5LTNZaExxUUh1c3ZZTFQ2UQ?oc=5)
